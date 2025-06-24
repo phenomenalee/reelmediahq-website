@@ -11,9 +11,10 @@
             --gold: #D4AF37;
             --cream: #FEFDF8;
             --dark-gray: #2A2A2A;
-            --text-gray: #666;
+            --text-gray: #333;
             --light-gray: #F8F8F8;
-            --jet-black: #1A1A1A;
+            --black: #000000;
+            --white: #ffffff;
         }
 
         * {
@@ -29,98 +30,260 @@
             background: var(--cream);
         }
 
-        .serif {
-            font-family: 'Playfair Display', serif;
+        /* A24 Style Menu */
+        .menu-container {
+            position: fixed;
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 1000;
         }
 
-        /* Navigation */
-        nav {
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.menu-open {
+            opacity: 0.3;
+        }
+
+        .menu-bars {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-bars span {
+            width: 20px;
+            height: 2px;
+            background: var(--black);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        .menu-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-overlay {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(254, 253, 248, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(1, 68, 33, 0.1);
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--white);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 2rem 2rem 2rem;
+            list-style: none;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            border-right: 1px solid #eee;
+            z-index: 1001;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-menu li.close-item {
+            margin-bottom: 4rem;
+            margin-top: 0;
+        }
+
+        .nav-menu li:not(.close-item) {
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .nav-menu a.close-link {
+            color: var(--black);
+            font-weight: 400;
+            display: flex;
             align-items: center;
-            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav-menu a.close-link:hover {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .close-x {
+            font-size: 3rem;
+            font-weight: 100;
+            line-height: 1;
+        }
+
+        /* Page Content */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             color: var(--forest-green);
+            font-weight: 700;
         }
 
-        .logo .reel {
+        .hero h1 .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--forest-green);
-            position: relative;
             font-weight: 700;
             letter-spacing: -0.05em;
         }
 
-        .logo .reel::first-letter {
-            font-size: 1.8em;
+        .hero h1 .reel::first-letter {
+            font-size: 1.2em;
             line-height: 0.8;
-            font-weight: 700;
         }
 
-        .logo .mediahq {
+        .hero h1 .scoop {
             color: var(--gold);
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            line-height: 1.7;
         }
 
-        .nav-links a {
-            text-decoration: none;
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            background: var(--light-gray);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
             color: var(--forest-green);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
+        .form-description {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
+        .email-input {
             width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--forest-green);
+        }
+
+        .subscribe-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--forest-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .subscribe-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
         }
 
         /* Footer */
         footer {
-            background: var(--jet-black);
-            color: white;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+            color: var(--dark-gray);
             text-align: center;
-            padding: 3rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(1, 68, 33, 0.1);
         }
 
         .footer-content {
@@ -129,11 +292,9 @@
         }
 
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: center;
+            margin-bottom: 0.5rem;
         }
 
         .footer-logo .reel {
@@ -141,11 +302,14 @@
             font-style: italic;
             color: var(--forest-green);
             position: relative;
+            font-weight: 700;
+            letter-spacing: -0.05em;
         }
 
         .footer-logo .reel::first-letter {
-            font-size: 1.3em;
+            font-size: 1.8em;
             line-height: 0.8;
+            font-weight: 700;
         }
 
         .footer-logo .mediahq {
@@ -153,123 +317,109 @@
         }
 
         .footer-tagline {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
+            color: var(--black);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--forest-green);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--gold);
         }
-        
-        .scoop-content {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
 
-        .scoop-hero {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .scoop-hero h1 {
-            font-size: 3rem;
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .scoop-hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .scoop-articles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .article-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(1, 68, 33, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .article-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .article-card h2 {
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .article-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .article-card a {
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .scoop-content {
-                margin: 2rem auto;
+            .hero {
+                padding: 6rem 1rem 4rem;
             }
 
-            .scoop-hero h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .newsletter-section {
+                padding: 3rem 1rem;
+            }
+
+            .newsletter-form {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+    <!-- A24 Style Menu -->
+    <div class="menu-container">
+        <button class="menu-toggle">
+            <div class="menu-bars">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="scoop.html">Reel Scoop</a></li>
-                <li><a href="strategy.html">Reel Strategy</a></li>
-                <li><a href="studio.html">Reelverse Studio</a></li>
-            </ul>
-        </div>
+            <div class="menu-label">Menu</div>
+        </button>
+    </div>
+
+    <div class="nav-overlay"></div>
+    
+    <nav>
+        <ul class="nav-menu">
+            <li class="close-item">
+                <a href="#" class="close-link">
+                    <span class="close-x">×</span>
+                </a>
+            </li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scoop.html">Reel Scoop</a></li>
+            <li><a href="strategy.html">Reel Strategy</a></li>
+            <li><a href="studio.html">Reelverse Studio</a></li>
+        </ul>
     </nav>
 
-    <main class="scoop-content">
-        <section class="scoop-hero">
-            <h1>Reel Scoop</h1>
-            <p>Insights, analysis, and stories from the intersection of AI, media, and creativity.</p>
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1><span class="reel">Reel</span> <span class="scoop">Scoop</span></h1>
+                <p class="hero-description">
+                    Curated insights on how AI is transforming creativity, media, and business — from intelligent systems to emerging creative tools.
+                </p>
+            </div>
         </section>
 
-        <section class="scoop-articles">
-            <!-- Article cards will be populated here -->
+        <!-- Newsletter Signup -->
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <div class="newsletter-form">
+                    <h2 class="form-title">Stay Informed</h2>
+                    <p class="form-description">
+                        Join a growing network of creators, strategists, and innovators. Receive fresh insights in your inbox.
+                    </p>
+                    <form>
+                        <input 
+                            type="email" 
+                            class="email-input" 
+                            placeholder="Enter your email address"
+                            required
+                        >
+                        <button type="submit" class="subscribe-btn">
+                            Subscribe to Reel Scoop
+                        </button>
+                    </form>
+                </div>
+            </div>
         </section>
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -277,11 +427,58 @@
             <div class="footer-logo">
                 <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
             </div>
-            <p class="footer-tagline">Crafting the future of creative content</p>
+            <p class="footer-tagline">Exploring the edges of creative possibility</p>
             <div class="footer-links">
-                <a href="mailto:cl@reelmediahq.com">CL@ReelMediaHQ.Com</a>
+                <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a>
             </div>
         </div>
     </footer>
+
+    <script>
+        // A24 Style Menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeLink = document.querySelector('.close-link');
+
+        // Open menu
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.add('active');
+            navOverlay.classList.add('active');
+            menuToggle.classList.add('menu-open');
+        });
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            menuToggle.classList.remove('menu-open');
+        }
+
+        // Close menu events
+        closeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMenu();
+        });
+        
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking nav links (except close link)
+        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Newsletter form handling
+        document.querySelector('.newsletter-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('.email-input').value;
+            if (email) {
+                // Replace {{email}} with the actual email address
+                const magicLink = 'https://magic.beehiiv.com/v1/48eabd73-0b60-46f5-b409-d66ec3887ebf?email=' + encodeURIComponent(email);
+                // Redirect to Beehiiv's magic link
+                window.location.href = magicLink;
+            }
+        });
+    </script>
 </body>
 </html>

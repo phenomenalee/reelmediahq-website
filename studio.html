@@ -11,9 +11,10 @@
             --gold: #D4AF37;
             --cream: #FEFDF8;
             --dark-gray: #2A2A2A;
-            --text-gray: #666;
+            --text-gray: #333;
             --light-gray: #F8F8F8;
-            --jet-black: #1A1A1A;
+            --black: #000000;
+            --white: #ffffff;
         }
 
         * {
@@ -29,98 +30,222 @@
             background: var(--cream);
         }
 
-        .serif {
-            font-family: 'Playfair Display', serif;
+        /* A24 Style Menu */
+        .menu-container {
+            position: fixed;
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 1000;
         }
 
-        /* Navigation */
-        nav {
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.menu-open {
+            opacity: 0.3;
+        }
+
+        .menu-bars {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-bars span {
+            width: 20px;
+            height: 2px;
+            background: var(--black);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        .menu-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-overlay {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(254, 253, 248, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(1, 68, 33, 0.1);
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--white);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 2rem 2rem 2rem;
+            list-style: none;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            border-right: 1px solid #eee;
+            z-index: 1001;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-menu li.close-item {
+            margin-bottom: 4rem;
+            margin-top: 0;
+        }
+
+        .nav-menu li:not(.close-item) {
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .nav-menu a.close-link {
+            color: var(--black);
+            font-weight: 400;
+            display: flex;
             align-items: center;
-            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav-menu a.close-link:hover {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .close-x {
+            font-size: 3rem;
+            font-weight: 100;
+            line-height: 1;
+        }
+
+        /* Page Content */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             color: var(--forest-green);
+            font-weight: 700;
         }
 
-        .logo .reel {
+        .hero h1 .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--forest-green);
-            position: relative;
             font-weight: 700;
             letter-spacing: -0.05em;
         }
 
-        .logo .reel::first-letter {
-            font-size: 1.8em;
+        .hero h1 .reel::first-letter {
+            font-size: 1.2em;
             line-height: 0.8;
-            font-weight: 700;
         }
 
-        .logo .mediahq {
+        .hero h1 .verse {
             color: var(--gold);
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+        .hero h1 .studio {
+            color: var(--gold);
         }
 
-        .nav-links a {
-            text-decoration: none;
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        /* Status Section */
+        .status-section {
+            padding: 4rem 2rem;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .status-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .status-title {
+            font-size: 1.5rem;
             color: var(--forest-green);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .status-description {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
         }
 
         /* Footer */
         footer {
-            background: var(--jet-black);
-            color: white;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+            color: var(--dark-gray);
             text-align: center;
-            padding: 3rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(1, 68, 33, 0.1);
         }
 
         .footer-content {
@@ -129,9 +254,9 @@
         }
 
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-logo .reel {
@@ -139,11 +264,14 @@
             font-style: italic;
             color: var(--forest-green);
             position: relative;
+            font-weight: 700;
+            letter-spacing: -0.05em;
         }
 
         .footer-logo .reel::first-letter {
-            font-size: 1.3em;
+            font-size: 1.8em;
             line-height: 0.8;
+            font-weight: 700;
         }
 
         .footer-logo .mediahq {
@@ -151,148 +279,92 @@
         }
 
         .footer-tagline {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
+            color: var(--black);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--forest-green);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--gold);
         }
-        
-        .studio-content {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
 
-        .studio-hero {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .studio-hero h1 {
-            font-size: 3rem;
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .studio-hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .project-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.05);
-        }
-
-        .project-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(1, 68, 33, 0.8);
-            color: white;
-            padding: 1.5rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-overlay {
-            transform: translateY(0);
-        }
-
-        .project-overlay h3 {
-            margin-bottom: 0.5rem;
-        }
-
-        .project-overlay p {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-overlay a {
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .studio-content {
-                margin: 2rem auto;
+            .hero {
+                padding: 6rem 1rem 4rem;
             }
 
-            .studio-hero h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .status-section {
+                padding: 3rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+    <!-- A24 Style Menu -->
+    <div class="menu-container">
+        <button class="menu-toggle">
+            <div class="menu-bars">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="scoop.html">Reel Scoop</a></li>
-                <li><a href="strategy.html">Reel Strategy</a></li>
-                <li><a href="studio.html">Reelverse Studio</a></li>
-            </ul>
-        </div>
+            <div class="menu-label">Menu</div>
+        </button>
+    </div>
+
+    <div class="nav-overlay"></div>
+    
+    <nav>
+        <ul class="nav-menu">
+            <li class="close-item">
+                <a href="#" class="close-link">
+                    <span class="close-x">×</span>
+                </a>
+            </li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scoop.html">Reel Scoop</a></li>
+            <li><a href="strategy.html">Reel Strategy</a></li>
+            <li><a href="studio.html">Reelverse Studio</a></li>
+        </ul>
     </nav>
 
-    <main class="studio-content">
-        <section class="studio-hero">
-            <h1>Reelverse Studio</h1>
-            <p>Creative experiments in AI storytelling. Short films, interactive narratives, and prototype experiences.</p>
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1><span class="reel">Reel</span><span class="verse">verse</span> <span class="studio">Studio</span></h1>
+                <p class="hero-description">
+                    Creative experiments exploring the future of storytelling, interactivity, and intelligent media. A laboratory for testing ideas at the intersection of technology and narrative.
+                </p>
+            </div>
         </section>
 
-        <section class="projects-grid">
-            <!-- Project cards will be populated here -->
+        <!-- Status Section -->
+        <section class="status-section">
+            <div class="status-container">
+                <h2 class="status-title">Building Something New</h2>
+                <p class="status-description">
+                    Exploring what's possible when AI meets human creativity - from interactive narratives to intelligent media formats, each project pushes the boundaries of storytelling and reimagines how ideas take shape.
+                </p>
+            </div>
         </section>
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -300,11 +372,46 @@
             <div class="footer-logo">
                 <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
             </div>
-            <p class="footer-tagline">Crafting the future of creative content</p>
+            <p class="footer-tagline">Exploring the edges of creative possibility</p>
             <div class="footer-links">
-                <a href="mailto:cl@reelmediahq.com">CL@ReelMediaHQ.Com</a>
+                <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a>
             </div>
         </div>
     </footer>
+
+    <script>
+        // A24 Style Menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeLink = document.querySelector('.close-link');
+
+        // Open menu
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.add('active');
+            navOverlay.classList.add('active');
+            menuToggle.classList.add('menu-open');
+        });
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            menuToggle.classList.remove('menu-open');
+        }
+
+        // Close menu events
+        closeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMenu();
+        });
+        
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking nav links (except close link)
+        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
 </body>
 </html>

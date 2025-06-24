@@ -13,7 +13,8 @@
             --dark-gray: #2A2A2A;
             --text-gray: #333;
             --light-gray: #F8F8F8;
-            --jet-black: #1A1A1A;
+            --black: #000000;
+            --white: #ffffff;
         }
 
         * {
@@ -29,99 +30,299 @@
             background: var(--cream);
         }
 
-        .serif {
-            font-family: 'Playfair Display', serif;
+        /* A24 Style Menu */
+        .menu-container {
+            position: fixed;
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 1000;
         }
 
-        /* Navigation */
-        nav {
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.menu-open {
+            opacity: 0.3;
+        }
+
+        .menu-bars {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-bars span {
+            width: 20px;
+            height: 2px;
+            background: var(--black);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        .menu-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-overlay {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(254, 253, 248, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(1, 68, 33, 0.1);
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--white);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 2rem 2rem 2rem;
+            list-style: none;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            border-right: 1px solid #eee;
+            z-index: 1001;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-menu li.close-item {
+            margin-bottom: 4rem;
+            margin-top: 0;
+        }
+
+        .nav-menu li:not(.close-item) {
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            display: block;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .nav-menu a.close-link {
+            color: var(--black);
+            font-weight: 400;
+            display: flex;
             align-items: center;
-            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav-menu a.close-link:hover {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .close-x {
+            font-size: 3rem;
+            font-weight: 100;
+            line-height: 1;
+        }
+
+        /* Page Content */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             color: var(--forest-green);
+            font-weight: 700;
         }
 
-        .logo .reel {
+        .hero h1 .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--forest-green);
-            position: relative;
             font-weight: 700;
             letter-spacing: -0.05em;
         }
 
-        .logo .reel::first-letter {
-            font-size: 1.8em;
+        .hero h1 .reel::first-letter {
+            font-size: 1.2em;
             line-height: 0.8;
-            font-weight: 700;
         }
 
-        .logo .mediahq {
+        .hero h1 .strategy {
             color: var(--gold);
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            line-height: 1.7;
         }
 
-        .nav-links a {
-            text-decoration: none;
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            background: var(--light-gray);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
             color: var(--forest-green);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-description {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            font-size: 0.9rem;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
+        .form-input {
             width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--forest-green);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--forest-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Alternative Contact */
+        .alt-contact {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .alt-contact p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .email-link {
+            color: var(--forest-green);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .email-link:hover {
+            color: var(--gold);
         }
 
         /* Footer */
         footer {
-            background: var(--jet-black);
-            color: white;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+            color: var(--dark-gray);
             text-align: center;
-            padding: 3rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            padding: 3rem 2rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(1, 68, 33, 0.1);
         }
 
         .footer-content {
@@ -130,9 +331,9 @@
         }
 
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .footer-logo .reel {
@@ -140,11 +341,14 @@
             font-style: italic;
             color: var(--forest-green);
             position: relative;
+            font-weight: 700;
+            letter-spacing: -0.05em;
         }
 
         .footer-logo .reel::first-letter {
-            font-size: 1.3em;
+            font-size: 1.8em;
             line-height: 0.8;
+            font-weight: 700;
         }
 
         .footer-logo .mediahq {
@@ -152,147 +356,142 @@
         }
 
         .footer-tagline {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
+            color: var(--black);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--forest-green);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--gold);
         }
-        
-        .strategy-content {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
 
-        .strategy-hero {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .strategy-hero h1 {
-            font-size: 3rem;
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .strategy-hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .strategy-services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(1, 68, 33, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-card h3 {
-            color: var(--forest-green);
-            margin-bottom: 1rem;
-        }
-
-        .service-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .pillar-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--light-gray);
-            color: var(--forest-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .contact-button {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: var(--forest-green);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .contact-button:hover {
-            background: var(--gold);
-            transform: translateY(-2px);
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .strategy-content {
-                margin: 2rem auto;
+            .hero {
+                padding: 6rem 1rem 4rem;
             }
 
-            .strategy-hero h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-section {
+                padding: 3rem 1rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+    <!-- A24 Style Menu -->
+    <div class="menu-container">
+        <button class="menu-toggle">
+            <div class="menu-bars">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="scoop.html">Reel Scoop</a></li>
-                <li><a href="strategy.html">Reel Strategy</a></li>
-                <li><a href="studio.html">Reelverse Studio</a></li>
-            </ul>
-        </div>
+            <div class="menu-label">Menu</div>
+        </button>
+    </div>
+
+    <div class="nav-overlay"></div>
+    
+    <nav>
+        <ul class="nav-menu">
+            <li class="close-item">
+                <a href="#" class="close-link">
+                    <span class="close-x">×</span>
+                </a>
+            </li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scoop.html">Reel Scoop</a></li>
+            <li><a href="strategy.html">Reel Strategy</a></li>
+            <li><a href="studio.html">Reelverse Studio</a></li>
+        </ul>
     </nav>
 
-    <main class="strategy-content">
-        <section class="strategy-hero">
-            <h1>Reel Strategy</h1>
-            <p>Strategic consulting for the future of media and AI-driven content creation.</p>
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1><span class="reel">Reel</span> <span class="strategy">Strategy</span></h1>
+                <p class="hero-description">
+                    Helping teams align vision, validate markets, and bring ideas to life.
+                </p>
+            </div>
         </section>
 
-        <section class="strategy-services">
-            <!-- Service cards will be populated here -->
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h2 class="form-title">Start a Conversation</h2>
+                    <p class="form-description">
+                        Looking for a strategic partner? Tell us what you are working on and we'll take it from there.
+                    </p>
+                    <form id="strategy-form">
+                        <div class="input-group">
+                            <label class="input-label" for="name">Name</label>
+                            <input 
+                                type="text" 
+                                id="name"
+                                name="name"
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="email">Email</label>
+                            <input 
+                                type="email" 
+                                id="email"
+                                name="email"
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="company">Company</label>
+                            <input 
+                                type="text" 
+                                id="company"
+                                name="company"
+                                class="form-input"
+                            >
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="message">Message</label>
+                            <textarea 
+                                id="message"
+                                name="message"
+                                class="form-input form-textarea" 
+                                placeholder="What are you working on or thinking through?"
+                                required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
         </section>
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -300,11 +499,91 @@
             <div class="footer-logo">
                 <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
             </div>
-            <p class="footer-tagline">Crafting the future of creative content</p>
+            <p class="footer-tagline">Exploring the edges of creative possibility</p>
             <div class="footer-links">
-                <a href="mailto:cl@reelmediahq.com">CL@ReelMediaHQ.Com</a>
+                <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a>
             </div>
         </div>
     </footer>
+
+    <script>
+        // A24 Style Menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeLink = document.querySelector('.close-link');
+
+        // Open menu
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.add('active');
+            navOverlay.classList.add('active');
+            menuToggle.classList.add('menu-open');
+        });
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            menuToggle.classList.remove('menu-open');
+        }
+
+        // Close menu events
+        closeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMenu();
+        });
+        
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking nav links (except close link)
+        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Contact form handling with Google Sheets
+        document.getElementById('strategy-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('company', document.getElementById('company').value);
+            formData.append('message', document.getElementById('message').value);
+            
+            // Replace this URL with your Google Apps Script web app URL
+            const scriptURL = 'https://script.google.com/a/macros/reelmediahq.com/s/AKfycbxB_UDRzz0AnNoDe51J8y1OIm1PqQa-vcuIIIKoutSe6XLy5OF1_yg3VpaIX-cyx_K3/exec';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Thank you for reaching out! We\'ll get back to you within 24 hours.');
+                    document.getElementById('strategy-form').reset();
+                } else {
+                    alert('There was an error sending your message. Please try again or email us directly.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error sending your message. Please try again or email us directly.');
+            })
+            .finally(() => {
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reel Strategy - ReelMediaHQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #014421;
+            --gold: #D4AF37;
+            --cream: #FEFDF8;
+            --dark-gray: #2A2A2A;
+            --text-gray: #333;
+            --light-gray: #F8F8F8;
+            --jet-black: #1A1A1A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: var(--cream);
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(1, 68, 33, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+            position: relative;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .logo .reel::first-letter {
+            font-size: 1.8em;
+            line-height: 0.8;
+            font-weight: 700;
+        }
+
+        .logo .mediahq {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--forest-green);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--jet-black);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+            position: relative;
+        }
+
+        .footer-logo .reel::first-letter {
+            font-size: 1.3em;
+            line-height: 0.8;
+        }
+
+        .footer-logo .mediahq {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .strategy-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .strategy-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .strategy-hero h1 {
+            font-size: 3rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .strategy-hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .strategy-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(1, 68, 33, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-gray);
+            color: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--forest-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .contact-button:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .strategy-content {
+                margin: 2rem auto;
+            }
+
+            .strategy-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="scoop.html">Reel Scoop</a></li>
+                <li><a href="strategy.html">Reel Strategy</a></li>
+                <li><a href="studio.html">Reelverse Studio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="strategy-content">
+        <section class="strategy-hero">
+            <h1>Reel Strategy</h1>
+            <p>Strategic consulting for the future of media and AI-driven content creation.</p>
+        </section>
+
+        <section class="strategy-services">
+            <!-- Service cards will be populated here -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+            </div>
+            <p class="footer-tagline">Crafting the future of creative content</p>
+            <div class="footer-links">
+                <a href="mailto:cl@reelmediahq.com">CL@ReelMediaHQ.Com</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

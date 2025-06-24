@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelMediaHQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #014421;
+            --gold: #D4AF37;
+            --cream: #FEFDF8;
+            --dark-gray: #2A2A2A;
+            --text-gray: #333;
+            --light-gray: #F8F8F8;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: var(--cream);
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* A24 Style Menu */
+        .menu-container {
+            position: fixed;
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 1000;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.menu-open {
+            opacity: 0;
+        }
+
+        .menu-bars {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-bars span {
+            width: 20px;
+            height: 2px;
+            background: var(--black);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        .menu-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .close-toggle {
+            position: fixed;
+            top: 1.5rem;
+            left: 2rem;
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--black);
+        }
+
+        .close-toggle.active {
+            display: flex;
+        }
+
+        .close-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .close-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 2rem 2rem 2rem;
+            list-style: none;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            border-right: 1px solid #eee;
+            z-index: 1001;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-menu li.close-item {
+            margin-bottom: 4rem;
+            margin-top: 0;
+        }
+
+        .nav-menu li:not(.close-item) {
+            margin-bottom: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+            display: block;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--forest-green);
+        }
+
+        .hero .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+            position: relative;
+        }
+
+        .hero .reel::first-letter {
+            font-size: 1.2em;
+            line-height: 0.8;
+        }
+
+        .hero .mediahq {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Pillars Section */
+        .pillars {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pillar-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(1, 68, 33, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(1, 68, 33, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gold);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .pillar-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(1, 68, 33, 0.15);
+        }
+
+        .pillar-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-gray);
+            color: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--forest-green);
+            font-weight: 600;
+        }
+
+        .pillar-card h3 .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+        }
+
+        .pillar-card h3 .scoop,
+        .pillar-card h3 .strategy,
+        .pillar-card h3 .verse,
+        .pillar-card h3 .studio {
+            color: var(--gold);
+        }
+
+        .pillar-card p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pillar-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--forest-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-cta:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+            color: var(--dark-gray);
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(1, 68, 33, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+            position: relative;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-logo .reel::first-letter {
+            font-size: 1.8em;
+            line-height: 0.8;
+            font-weight: 700;
+        }
+
+        .footer-logo .mediahq {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: var(--black);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--forest-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Section styling */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 968px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .pillar-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- A24 Style Menu -->
+    <div class="menu-container">
+        <button class="menu-toggle">
+            <div class="menu-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-label">Menu</div>
+        </button>
+    </div>
+
+    <div class="nav-overlay"></div>
+    
+    <nav>
+        <ul class="nav-menu">
+            <li class="close-item">
+                <a href="#" class="close-link">
+                    <span class="close-x">×</span>
+                </a>
+            </li>
+            <li><a href="scoop.html">Reel Scoop</a></li>
+            <li><a href="strategy.html">Reel Strategy</a></li>
+            <li><a href="studio.html">Reelverse Studio</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1><span class="reel">Reel</span><span class="mediahq">MediaHQ</span></h1>
+            <p class="hero-subtitle">Creative Studio & Insight Lab</p>
+            <p class="hero-description">
+                Exploring how emerging technologies shape the way we think, communicate, and create. A cross-disciplinary studio working at the frontier of intelligent systems, storytelling, and strategic design.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section class="pillars" id="pillars">
+        <div class="pillars-grid">
+            <!-- Reel Scoop -->
+            <div class="pillar-card fade-in">
+                <div class="pillar-icon">💡</div>
+                <h3><span class="reel">Reel</span> <span class="scoop">Scoop</span></h3>
+                <p>Curated insights on how AI is reshaping creativity, media, and business.</p>
+                <a href="scoop.html" class="pillar-cta">Subscribe Now</a>
+            </div>
+
+            <!-- Reel Strategy -->
+            <div class="pillar-card fade-in">
+                <div class="pillar-icon">🎯</div>
+                <h3><span class="reel">Reel</span> <span class="strategy">Strategy</span></h3>
+                <p>Advisory services for teams navigating growth, innovation, and emerging tech.</p>
+                <a href="strategy.html" class="pillar-cta">Reach Out</a>
+            </div>
+
+            <!-- Reelverse Studio -->
+            <div class="pillar-card fade-in">
+                <div class="pillar-icon">🎬</div>
+                <h3><span class="reel">Reel</span><span class="verse">verse</span> <span class="studio">Studio</span></h3>
+                <p>Creative experiments exploring the future of storytelling, interactivity, and intelligent media.</p>
+                <a href="studio.html" class="pillar-cta">Explore</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+            </div>
+            <p class="footer-tagline">Exploring the edges of creative possibility</p>
+            <a href="mailto:cl@reelmediahq.com" class="footer-links">cl@reelmediahq.com</a>
+        </div>
+    </footer>
+
+    <script>
+        // A24 Style Menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeLink = document.querySelector('.close-link');
+
+        // Open menu
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.add('active');
+            navOverlay.classList.add('active');
+            menuToggle.classList.add('menu-open');
+        });
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            menuToggle.classList.remove('menu-open');
+        }
+
+        // Close menu events
+        closeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMenu();
+        });
+        
+        navOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking nav links (except close link)
+        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

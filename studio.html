@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reelverse Studio - ReelMediaHQ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --forest-green: #014421;
@@ -21,19 +21,106 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--dark-gray);
-            background: var(--cream);
+            background: var(--black);
+            overflow-x: hidden;
         }
 
-        /* A24 Style Menu */
+        /* Luxury Glow Cursor - High Performance */
+        .cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .cursor::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
+        /* Hover State */
+        .cursor.hover::before {
+            transform: scale(1.5);
+            background: radial-gradient(circle, rgba(1, 68, 33, 0.4) 0%, transparent 70%);
+        }
+
+        .cursor.hover::after {
+            background: var(--forest-green);
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        /* Click Animation */
+        .cursor.click::before {
+            transform: scale(0.8);
+        }
+
+        .cursor.click::after {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        /* Single Trail for subtle effect */
+        .cursor-trail {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Noise Texture */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSI0IiAvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjEiIC8+Cjwvc3ZnPg==');
+        }
+
+        /* Premium Menu */
         .menu-container {
             position: fixed;
-            top: 1.5rem;
+            top: 2rem;
             left: 2rem;
             z-index: 1000;
         }
@@ -41,49 +128,74 @@
         .menu-toggle {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             background: none;
             border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
         }
 
-        .menu-toggle.menu-open {
-            opacity: 0.3;
+        .menu-toggle:hover {
+            transform: translateX(5px);
         }
 
         .menu-bars {
             display: flex;
             flex-direction: column;
+            width: 24px;
         }
 
         .menu-bars span {
-            width: 20px;
+            width: 100%;
             height: 2px;
-            background: var(--black);
-            margin: 2px 0;
-            transition: 0.3s;
+            background: var(--gold);
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(1) {
+            width: 80%;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(2) {
+            width: 60%;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(3) {
+            width: 40%;
         }
 
         .menu-label {
             font-size: 0.9rem;
             font-weight: 500;
-            color: var(--black);
+            color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
         }
 
+        .menu-toggle:hover .menu-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Navigation Overlay */
         .nav-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(1, 68, 33, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay.active {
@@ -91,187 +203,394 @@
             visibility: visible;
         }
 
-        .nav-menu {
+        .nav-content {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px;
-            height: 100vh;
-            background: var(--white);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            display: flex;
+            gap: 4rem;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+
+        .nav-overlay.active .nav-content {
+            opacity: 1;
+        }
+
+        .nav-menu {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding: 2rem 2rem 2rem;
+            justify-content: center;
+        }
+
+        .nav-menu li {
             list-style: none;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-            border-right: 1px solid #eee;
-            z-index: 1001;
-        }
-
-        .nav-menu.active {
-            transform: translateX(0);
-        }
-
-        .nav-menu li.close-item {
-            margin-bottom: 4rem;
-            margin-top: 0;
-        }
-
-        .nav-menu li:not(.close-item) {
-            margin-bottom: 2.5rem;
+            margin: 2rem 0;
+            overflow: hidden;
         }
 
         .nav-menu a {
-            color: var(--black);
+            color: var(--cream);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
             display: block;
-            font-family: 'Inter', sans-serif;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-menu a:hover {
-            color: var(--gold);
-            text-decoration: underline;
+        .nav-overlay.active .nav-menu a {
+            animation: navItemSlide 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .nav-menu a.close-link {
-            color: var(--black);
-            font-weight: 400;
+        .nav-overlay.active .nav-menu li:nth-child(1) a { animation-delay: 0.1s; }
+        .nav-overlay.active .nav-menu li:nth-child(2) a { animation-delay: 0.2s; }
+        .nav-overlay.active .nav-menu li:nth-child(3) a { animation-delay: 0.3s; }
+        .nav-overlay.active .nav-menu li:nth-child(4) a { animation-delay: 0.4s; }
+
+        @keyframes navItemSlide {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .close-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: none;
+            border: 2px solid var(--cream);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            font-family: 'Inter', sans-serif;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: none;
         }
 
-        .nav-menu a.close-link:hover {
-            color: var(--text-gray);
-            text-decoration: none;
+        .close-nav:hover {
+            transform: rotate(90deg);
+            background: var(--gold);
+            border-color: var(--gold);
         }
 
-        .close-x {
-            font-size: 3rem;
-            font-weight: 100;
-            line-height: 1;
-        }
-
-        /* Page Content */
-        .main-content {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .close-nav span {
+            color: var(--cream);
+            font-size: 1.5rem;
+            font-weight: 300;
         }
 
         /* Hero Section */
         .hero {
-            padding: 8rem 2rem 6rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--black);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 3D Grid Background */
+        .grid-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-50%);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: perspective(500px) rotateX(60deg) translateY(-50%) translateZ(0);
+            }
+            to {
+                transform: perspective(500px) rotateX(60deg) translateY(-50%) translateZ(50px);
+            }
         }
 
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            padding: 0 2rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--forest-green);
+            font-size: clamp(3rem, 7vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--cream);
             font-weight: 700;
+            position: relative;
         }
 
         .hero h1 .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--forest-green);
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-
-        .hero h1 .reel::first-letter {
-            font-size: 1.2em;
-            line-height: 0.8;
+            color: var(--cream);
+            display: inline-block;
+            animation: glitch 3s infinite;
         }
 
         .hero h1 .verse {
             color: var(--gold);
+            display: inline-block;
+            animation: glitch 3s infinite 0.1s;
         }
 
         .hero h1 .studio {
             color: var(--gold);
+            display: inline-block;
+            animation: glitch 3s infinite 0.2s;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+            91% {
+                transform: translate(-2px, 2px);
+                filter: hue-rotate(90deg);
+            }
+            92% {
+                transform: translate(2px, -1px);
+                filter: hue-rotate(180deg);
+            }
+            93% {
+                transform: translate(-1px, 1px);
+                filter: hue-rotate(270deg);
+            }
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-gray);
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 3rem;
-            line-height: 1.7;
+            line-height: 1.8;
+            animation: fadeIn 1s ease 0.5s both;
         }
 
-        /* Status Section */
-        .status-section {
-            padding: 4rem 2rem;
-            background: var(--white);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Projects Showcase */
+        .projects-section {
+            padding: 8rem 2rem;
+            background: var(--black);
+            position: relative;
+        }
+
+        .projects-header {
             text-align: center;
+            margin-bottom: 5rem;
         }
 
-        .status-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .status-title {
-            font-size: 1.5rem;
-            color: var(--forest-green);
+        .projects-title {
+            font-size: 3rem;
+            color: var(--cream);
             margin-bottom: 1rem;
             font-weight: 600;
         }
 
-        .status-description {
-            color: var(--text-gray);
+        .projects-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+        }
+
+        .projects-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(1, 68, 33, 0.9) 0%, rgba(212, 175, 55, 0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        .project-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-gray);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-bg {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+            transform: translateY(50%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-content {
+            transform: translateY(0);
+        }
+
+        .project-number {
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.1s;
+        }
+
+        .project-card:hover .project-number {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-title {
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            z-index: 2;
+            position: relative;
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2rem;
-            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.2s;
+            z-index: 2;
+            position: relative;
+        }
+
+        .project-card:hover .project-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.3s;
+            z-index: 2;
+            position: relative;
+        }
+
+        .project-card:hover .project-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-link:hover {
+            gap: 1rem;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
-            color: var(--dark-gray);
+            background: var(--black);
+            color: var(--cream);
+            padding: 6rem 2rem 2rem;
             text-align: center;
-            padding: 3rem 2rem 2rem;
-            margin-top: auto;
-            border-top: 1px solid rgba(1, 68, 33, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            margin-top: 4rem;
         }
 
         .footer-logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .footer-logo .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--forest-green);
-            position: relative;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-
-        .footer-logo .reel::first-letter {
-            font-size: 1.8em;
-            line-height: 0.8;
-            font-weight: 700;
+            color: var(--cream);
         }
 
         .footer-logo .mediahq {
@@ -279,44 +598,62 @@
         }
 
         .footer-tagline {
-            color: var(--black);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
         }
 
         .footer-links {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links a {
-            color: var(--forest-green);
+            color: var(--gold);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            transition: opacity 0.3s ease;
+            margin: 0 0.5rem;
         }
 
         .footer-links a:hover {
-            color: var(--gold);
+            opacity: 0.8;
         }
 
-        /* Mobile Responsiveness */
+        /* Responsive */
+        @media (max-width: 968px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero {
-                padding: 6rem 1rem 4rem;
-            }
-
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
-            .status-section {
-                padding: 3rem 1rem;
+            .project-card {
+                height: 400px;
+            }
+
+            .cursor,
+            .cursor-trail {
+                display: none;
+            }
+
+            * {
+                cursor: auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- A24 Style Menu -->
+    <!-- Noise Texture -->
+    <div class="noise"></div>
+
+    <!-- Luxury Glow Cursor -->
+    <div class="cursor"></div>
+    <!-- Single Glow Trail -->
+    <div class="cursor-trail"></div>
+
+    <!-- Premium Menu -->
     <div class="menu-container">
         <button class="menu-toggle">
             <div class="menu-bars">
@@ -328,89 +665,221 @@
         </button>
     </div>
 
-    <div class="nav-overlay"></div>
-    
-    <nav>
-        <ul class="nav-menu">
-            <li class="close-item">
-                <a href="#" class="close-link">
-                    <span class="close-x">×</span>
-                </a>
-            </li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="scoop.html">Reel Scoop</a></li>
-            <li><a href="strategy.html">Reel Strategy</a></li>
-            <li><a href="studio.html">Reelverse Studio</a></li>
-        </ul>
-    </nav>
-
-    <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1><span class="reel">Reel</span><span class="verse">verse</span> <span class="studio">Studio</span></h1>
-                <p class="hero-description">
-                    Creative experiments exploring the future of storytelling, interactivity, and intelligent media. A laboratory for testing ideas at the intersection of technology and narrative.
-                </p>
-            </div>
-        </section>
-
-        <!-- Status Section -->
-        <section class="status-section">
-            <div class="status-container">
-                <h2 class="status-title">Building Something New</h2>
-                <p class="status-description">
-                    Exploring what's possible when AI meets human creativity - from interactive narratives to intelligent media formats, each project pushes the boundaries of storytelling and reimagines how ideas take shape.
-                </p>
-            </div>
-        </section>
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay">
+        <div class="nav-content">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scoop.html">Reel Scoop</a></li>
+                    <li><a href="strategy.html">Reel Strategy</a></li>
+                    <li><a href="studio.html">Reelverse Studio</a></li>
+                </ul>
+            </nav>
+        </div>
+        <button class="close-nav">
+            <span>&times;</span>
+        </button>
     </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="grid-bg"></div>
+        </div>
+        <div class="hero-content">
+            <h1><span class="reel">Reel</span><span class="verse">verse</span> <span class="studio">Studio</span></h1>
+            <p class="hero-description">
+                Creative experiments exploring the future of storytelling, interactivity, and intelligent media. A laboratory for testing ideas at the intersection of technology and narrative.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section class="projects-section">
+        <div class="projects-header">
+            <h2 class="projects-title">Current Experiments</h2>
+            <p class="projects-subtitle">Pushing boundaries at the edge of possibility</p>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-bg" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);"></div>
+                <div class="project-content">
+                    <p class="project-number">Project 001</p>
+                    <h3 class="project-title">Neural Narratives</h3>
+                    <p class="project-description">
+                        An AI-powered storytelling engine that adapts narratives in real-time based on user interaction and emotional response.
+                    </p>
+                    <a href="#" class="project-link">
+                        Coming Soon
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-bg" style="background: linear-gradient(135deg, #1a1a1a 0%, #69351b 100%);"></div>
+                <div class="project-content">
+                    <p class="project-number">Project 002</p>
+                    <h3 class="project-title">Immersive Interfaces</h3>
+                    <p class="project-description">
+                        Exploring spatial computing and gesture-based interactions for next-generation creative tools.
+                    </p>
+                    <a href="#" class="project-link">
+                        In Development
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-bg" style="background: linear-gradient(135deg, #1a1a1a 0%, #1b4d69 100%);"></div>
+                <div class="project-content">
+                    <p class="project-number">Project 003</p>
+                    <h3 class="project-title">Generative Worlds</h3>
+                    <p class="project-description">
+                        Building dynamic environments that evolve and respond to collective user input, creating unique digital ecosystems.
+                    </p>
+                    <a href="#" class="project-link">
+                        Research Phase
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
-            </div>
-            <p class="footer-tagline">Exploring the edges of creative possibility</p>
-            <div class="footer-links">
-                <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a>
-            </div>
+        <div class="footer-logo">
+            <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
         </div>
+        <p class="footer-tagline">Exploring the edges of creative possibility</p>
+        <div class="footer-links">
+            <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a> | 
+            <a href="#">X (Twitter)</a> | 
+            <a href="#">YouTube</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.9rem;">&copy; 2025 ReelMediaHQ. All rights reserved.</p>
     </footer>
 
     <script>
-        // A24 Style Menu functionality
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const navOverlay = document.querySelector('.nav-overlay');
-        const closeLink = document.querySelector('.close-link');
-
-        // Open menu
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.add('active');
-            navOverlay.classList.add('active');
-            menuToggle.classList.add('menu-open');
-        });
-
-        // Close menu function
-        function closeMenu() {
-            navMenu.classList.remove('active');
-            navOverlay.classList.remove('active');
-            menuToggle.classList.remove('menu-open');
-        }
-
-        // Close menu events
-        closeLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeMenu();
+        // Luxury Glow Cursor - High Performance Version
+        const cursor = document.querySelector('.cursor');
+        const trail = document.querySelector('.cursor-trail');
+        let trailTimeout;
+        
+        // Direct cursor update for instant response
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Trail follows with slight delay for glow effect
+            clearTimeout(trailTimeout);
+            trail.style.opacity = '0.7';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            
+            trailTimeout = setTimeout(() => {
+                trail.style.opacity = '0';
+            }, 150);
         });
         
-        navOverlay.addEventListener('click', closeMenu);
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .project-card');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+        
+        // Click animation
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            trail.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+        });
 
-        // Close menu when clicking nav links (except close link)
-        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
-            link.addEventListener('click', closeMenu);
+        // Navigation
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeNav = document.querySelector('.close-nav');
+
+        menuToggle.addEventListener('click', () => {
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeNav.addEventListener('click', () => {
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Project cards parallax on mouse move
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                card.style.transform = `perspective(1000px) rotateY(${deltaX * 10}deg) rotateX(${-deltaY * 10}deg) scale(1.03)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `all 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+            observer.observe(card);
         });
     </script>
 </body>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reel Scoop - ReelMediaHQ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --forest-green: #014421;
@@ -21,6 +21,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -28,62 +33,170 @@
             line-height: 1.6;
             color: var(--dark-gray);
             background: var(--cream);
+            overflow-x: hidden;
         }
 
-        /* A24 Style Menu */
+        /* Luxury Glow Cursor - High Performance */
+        .cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+
+        .cursor::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .cursor::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
+        /* Hover State */
+        .cursor.hover::before {
+            transform: scale(1.5);
+            background: radial-gradient(circle, rgba(1, 68, 33, 0.4) 0%, transparent 70%);
+        }
+
+        .cursor.hover::after {
+            background: var(--forest-green);
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        /* Click Animation */
+        .cursor.click::before {
+            transform: scale(0.8);
+        }
+
+        .cursor.click::after {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        /* Single Trail for subtle effect */
+        .cursor-trail {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Noise Texture */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSI0IiAvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjEiIC8+Cjwvc3ZnPg==');
+        }
+
+        /* Premium Menu */
         .menu-container {
             position: fixed;
-            top: 1.5rem;
+            top: 2rem;
             left: 2rem;
             z-index: 1000;
+            mix-blend-mode: difference;
         }
 
         .menu-toggle {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             background: none;
             border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
         }
 
-        .menu-toggle.menu-open {
-            opacity: 0.3;
+        .menu-toggle:hover {
+            transform: translateX(5px);
         }
 
         .menu-bars {
             display: flex;
             flex-direction: column;
+            width: 24px;
         }
 
         .menu-bars span {
-            width: 20px;
+            width: 100%;
             height: 2px;
-            background: var(--black);
-            margin: 2px 0;
-            transition: 0.3s;
+            background: var(--white);
+            margin: 3px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(1) {
+            width: 80%;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(2) {
+            width: 60%;
+        }
+
+        .menu-toggle:hover .menu-bars span:nth-child(3) {
+            width: 40%;
         }
 
         .menu-label {
             font-size: 0.9rem;
             font-weight: 500;
-            color: var(--black);
+            color: var(--white);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
         }
 
+        .menu-toggle:hover .menu-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Navigation Overlay */
         .nav-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(1, 68, 33, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-overlay.active {
@@ -91,225 +204,515 @@
             visibility: visible;
         }
 
-        .nav-menu {
+        .nav-content {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px;
-            height: 100vh;
-            background: var(--white);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            display: flex;
+            gap: 4rem;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+
+        .nav-overlay.active .nav-content {
+            opacity: 1;
+        }
+
+        .nav-menu {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding: 2rem 2rem 2rem;
+            justify-content: center;
+        }
+
+        .nav-menu li {
             list-style: none;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-            border-right: 1px solid #eee;
-            z-index: 1001;
-        }
-
-        .nav-menu.active {
-            transform: translateX(0);
-        }
-
-        .nav-menu li.close-item {
-            margin-bottom: 4rem;
-            margin-top: 0;
-        }
-
-        .nav-menu li:not(.close-item) {
-            margin-bottom: 2.5rem;
+            margin: 2rem 0;
+            overflow: hidden;
         }
 
         .nav-menu a {
-            color: var(--black);
+            color: var(--cream);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            transition: color 0.2s ease;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
             display: block;
-            font-family: 'Inter', sans-serif;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-menu a:hover {
-            color: var(--gold);
-            text-decoration: underline;
+        .nav-overlay.active .nav-menu a {
+            animation: navItemSlide 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .nav-menu a.close-link {
-            color: var(--black);
-            font-weight: 400;
+        .nav-overlay.active .nav-menu li:nth-child(1) a { animation-delay: 0.1s; }
+        .nav-overlay.active .nav-menu li:nth-child(2) a { animation-delay: 0.2s; }
+        .nav-overlay.active .nav-menu li:nth-child(3) a { animation-delay: 0.3s; }
+        .nav-overlay.active .nav-menu li:nth-child(4) a { animation-delay: 0.4s; }
+
+        @keyframes navItemSlide {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .close-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: none;
+            border: 2px solid var(--cream);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            font-family: 'Inter', sans-serif;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: none;
         }
 
-        .nav-menu a.close-link:hover {
-            color: var(--text-gray);
-            text-decoration: none;
+        .close-nav:hover {
+            transform: rotate(90deg);
+            background: var(--gold);
+            border-color: var(--gold);
         }
 
-        .close-x {
-            font-size: 3rem;
-            font-weight: 100;
-            line-height: 1;
-        }
-
-        /* Page Content */
-        .main-content {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .close-nav span {
+            color: var(--cream);
+            font-size: 1.5rem;
+            font-weight: 300;
         }
 
         /* Hero Section */
         .hero {
-            padding: 8rem 2rem 6rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--forest-green) 0%, #023a1c 100%);
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle 20s linear infinite;
+        }
+
+        @keyframes floatParticle {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            padding: 0 2rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--forest-green);
+            font-size: clamp(3rem, 7vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--cream);
             font-weight: 700;
+            position: relative;
+            display: inline-block;
         }
 
         .hero h1 .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--forest-green);
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-
-        .hero h1 .reel::first-letter {
-            font-size: 1.2em;
-            line-height: 0.8;
+            color: var(--cream);
+            display: inline-block;
+            animation: slideInLeft 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero h1 .scoop {
             color: var(--gold);
+            display: inline-block;
+            animation: slideInRight 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-gray);
+            font-size: 1.3rem;
+            color: var(--cream);
             margin-bottom: 3rem;
-            line-height: 1.7;
+            line-height: 1.8;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
         }
 
         /* Newsletter Section */
         .newsletter-section {
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             background: var(--white);
+            position: relative;
+            overflow: hidden;
         }
 
         .newsletter-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .newsletter-form {
-            background: var(--light-gray);
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--cream) 0%, #f5f5ed 100%);
+            padding: 4rem;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(1, 68, 33, 0.1);
+        }
+
+        .newsletter-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotateGradient 20s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-content {
+            position: relative;
+            z-index: 1;
         }
 
         .form-title {
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             color: var(--forest-green);
             margin-bottom: 1rem;
             font-weight: 600;
+            text-align: center;
         }
 
         .form-description {
             color: var(--text-gray);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .input-wrapper {
+            position: relative;
             margin-bottom: 2rem;
-            font-size: 0.95rem;
         }
 
         .email-input {
             width: 100%;
-            padding: 1rem;
-            font-size: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-bottom: 1rem;
+            padding: 1.5rem 2rem;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background: white;
             font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         .email-input:focus {
             outline: none;
-            border-color: var(--forest-green);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .input-label {
+            position: absolute;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus + .input-label,
+        .email-input:not(:placeholder-shown) + .input-label {
+            top: -10px;
+            left: 1.5rem;
+            font-size: 0.9rem;
+            background: white;
+            padding: 0 0.5rem;
+            color: var(--gold);
         }
 
         .subscribe-btn {
             width: 100%;
-            padding: 1rem 2rem;
+            padding: 1.5rem 3rem;
             background: var(--forest-green);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .subscribe-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .subscribe-btn:hover::before {
+            width: 110%;
+            height: 300%;
+        }
+
+        .subscribe-btn span {
+            position: relative;
+            z-index: 1;
         }
 
         .subscribe-btn:hover {
-            background: var(--gold);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(1, 68, 33, 0.3);
+        }
+
+        /* Archive Preview */
+        .archive-section {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .archive-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .archive-title {
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            font-weight: 600;
+        }
+
+        .archive-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            align-items: stretch;
+        }
+
+        @media (max-width: 1024px) {
+            .archive-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .archive-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .archive-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 2.5rem;
+            min-height: 280px;
+        }
+
+        .archive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--forest-green) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .archive-card:hover::before {
+            opacity: 1;
+        }
+
+        .archive-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-date {
+            font-size: 0.875rem;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-excerpt {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-size: 1rem;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .read-more {
+            color: var(--forest-green);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .read-more:hover {
+            color: var(--gold);
+            transform: translateX(5px);
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
-            color: var(--dark-gray);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            color: var(--cream);
+            padding: 4rem 2rem 2rem;
             text-align: center;
-            padding: 3rem 2rem 2rem;
-            margin-top: auto;
-            border-top: 1px solid rgba(1, 68, 33, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .footer-logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .footer-logo .reel {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--forest-green);
-            position: relative;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-
-        .footer-logo .reel::first-letter {
-            font-size: 1.8em;
-            line-height: 0.8;
-            font-weight: 700;
+            color: var(--cream);
         }
 
         .footer-logo .mediahq {
@@ -317,48 +720,62 @@
         }
 
         .footer-tagline {
-            color: var(--black);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
         }
 
         .footer-links a {
-            color: var(--forest-green);
+            color: var(--gold);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            transition: opacity 0.3s ease;
+            margin: 0 0.5rem;
         }
 
         .footer-links a:hover {
-            color: var(--gold);
+            opacity: 0.8;
         }
 
-        /* Mobile Responsiveness */
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero {
-                padding: 6rem 1rem 4rem;
-            }
-
             .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .newsletter-section {
-                padding: 3rem 1rem;
+                font-size: 3rem;
             }
 
             .newsletter-form {
-                padding: 2rem 1rem;
+                padding: 2rem;
+            }
+
+            .archive-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .archive-card {
+                padding: 2rem;
+                min-height: auto;
+            }
+
+            .cursor,
+            .cursor-trail {
+                display: none;
+            }
+
+            * {
+                cursor: auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- A24 Style Menu -->
+    <!-- Noise Texture -->
+    <div class="noise"></div>
+
+    <!-- Luxury Glow Cursor -->
+    <div class="cursor"></div>
+    <!-- Single Glow Trail -->
+    <div class="cursor-trail"></div>
+
+    <!-- Premium Menu -->
     <div class="menu-container">
         <button class="menu-toggle">
             <div class="menu-bars">
@@ -370,114 +787,237 @@
         </button>
     </div>
 
-    <div class="nav-overlay"></div>
-    
-    <nav>
-        <ul class="nav-menu">
-            <li class="close-item">
-                <a href="#" class="close-link">
-                    <span class="close-x">×</span>
-                </a>
-            </li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="scoop.html">Reel Scoop</a></li>
-            <li><a href="strategy.html">Reel Strategy</a></li>
-            <li><a href="studio.html">Reelverse Studio</a></li>
-        </ul>
-    </nav>
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay">
+        <div class="nav-content">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scoop.html">Reel Scoop</a></li>
+                    <li><a href="strategy.html">Reel Strategy</a></li>
+                    <li><a href="studio.html">Reelverse Studio</a></li>
+                </ul>
+            </nav>
+        </div>
+        <button class="close-nav">
+            <span>&times;</span>
+        </button>
+    </div>
 
-    <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1><span class="reel">Reel</span> <span class="scoop">Scoop</span></h1>
-                <p class="hero-description">
-                    Curated insights on how AI is transforming creativity, media, and business — from intelligent systems to emerging creative tools.
-                </p>
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <h1><span class="reel">Reel</span> <span class="scoop">Scoop</span></h1>
+            <p class="hero-description">
+                Curated insights on how AI is transforming creativity, media, and business — from intelligent systems to emerging creative tools.
+            </p>
+        </div>
+    </section>
 
-        <!-- Newsletter Signup -->
-        <section class="newsletter-section">
-            <div class="newsletter-container">
-                <div class="newsletter-form">
-                    <h2 class="form-title">Stay Informed</h2>
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <div class="newsletter-form">
+                <div class="form-content">
+                    <h2 class="form-title">Stay In the Loop</h2>
                     <p class="form-description">
-                        Join a growing network of creators, strategists, and innovators. Receive fresh insights in your inbox.
+                        The most important AI x creativity news—distilled, summarized, and in your inbox. No noise, just signal.
                     </p>
-                    <form>
-                        <input 
-                            type="email" 
-                            class="email-input" 
-                            placeholder="Enter your email address"
-                            required
-                        >
+                    <form id="newsletter-form">
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                class="email-input" 
+                                id="email"
+                                placeholder=" "
+                                required
+                            >
+                            <label for="email" class="input-label">Enter your email address</label>
+                        </div>
                         <button type="submit" class="subscribe-btn">
-                            Subscribe to Reel Scoop
+                            <span>Subscribe Now</span>
                         </button>
                     </form>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <!-- Archive Preview -->
+    <section class="archive-section">
+        <div class="archive-header">
+            <h2 class="archive-title">Latest Highlights</h2>
+        </div>
+        
+        <div class="archive-grid">
+            <article class="archive-card">
+                <div class="card-date">February 2025</div>
+                <div class="card-content">
+                    <h3 class="card-title">AI in Post-Production</h3>
+                    <p class="card-excerpt">
+                        How studios are integrating generative tools into editing workflows — boosting speed, cutting costs, and reshaping creative timelines.
+                    </p>
+                </div>
+                <a href="#" class="read-more">
+                    → Read More
+                </a>
+            </article>
+
+            <article class="archive-card">
+                <div class="card-date">March 2025</div>
+                <div class="card-content">
+                    <h3 class="card-title">Synthetic Media & IP Law</h3>
+                    <p class="card-excerpt">
+                        A roundup of major AI-related lawsuits shaping the future of content rights, voice cloning, and generative training data.
+                    </p>
+                </div>
+                <a href="#" class="read-more">
+                    → Read More
+                </a>
+            </article>
+
+            <article class="archive-card">
+                <div class="card-date">April 2025</div>
+                <div class="card-content">
+                    <h3 class="card-title">AI Tools in the Writers' Room</h3>
+                    <p class="card-excerpt">
+                        From pitch to polish: how writers are experimenting with AI for structure, tone, and world-building — and where it's working.
+                    </p>
+                </div>
+                <a href="#" class="read-more">
+                    → Read More
+                </a>
+            </article>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
-            </div>
-            <p class="footer-tagline">Exploring the edges of creative possibility</p>
-            <div class="footer-links">
-                <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a>
-            </div>
+        <div class="footer-logo">
+            <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
         </div>
+        <p class="footer-tagline">Exploring the edges of creative possibility</p>
+        <div class="footer-links">
+            <a href="mailto:cl@reelmediahq.com">cl@reelmediahq.com</a> | 
+            <a href="#">X (Twitter)</a> | 
+            <a href="#">YouTube</a>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.9rem;">&copy; 2025 ReelMediaHQ. All rights reserved.</p>
     </footer>
 
     <script>
-        // A24 Style Menu functionality
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        const navOverlay = document.querySelector('.nav-overlay');
-        const closeLink = document.querySelector('.close-link');
-
-        // Open menu
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.add('active');
-            navOverlay.classList.add('active');
-            menuToggle.classList.add('menu-open');
-        });
-
-        // Close menu function
-        function closeMenu() {
-            navMenu.classList.remove('active');
-            navOverlay.classList.remove('active');
-            menuToggle.classList.remove('menu-open');
-        }
-
-        // Close menu events
-        closeLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeMenu();
+        // Luxury Glow Cursor - High Performance Version
+        const cursor = document.querySelector('.cursor');
+        const trail = document.querySelector('.cursor-trail');
+        let trailTimeout;
+        
+        // Direct cursor update for instant response
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Trail follows with slight delay for glow effect
+            clearTimeout(trailTimeout);
+            trail.style.opacity = '0.7';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            
+            trailTimeout = setTimeout(() => {
+                trail.style.opacity = '0';
+            }, 150);
         });
         
-        navOverlay.addEventListener('click', closeMenu);
-
-        // Close menu when clicking nav links (except close link)
-        document.querySelectorAll('.nav-menu a:not(.close-link)').forEach(link => {
-            link.addEventListener('click', closeMenu);
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .archive-card');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+        
+        // Click animation
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            trail.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
         });
 
-        // Newsletter form handling
-        document.querySelector('.newsletter-form form').addEventListener('submit', function(e) {
+        // Navigation
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const closeNav = document.querySelector('.close-nav');
+
+        menuToggle.addEventListener('click', () => {
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeNav.addEventListener('click', () => {
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Particle Effect
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = 20 + Math.random() * 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Newsletter form
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.querySelector('.email-input').value;
+            const email = document.getElementById('email').value;
             if (email) {
-                // Replace {{email}} with the actual email address
                 const magicLink = 'https://magic.beehiiv.com/v1/48eabd73-0b60-46f5-b409-d66ec3887ebf?email=' + encodeURIComponent(email);
-                // Redirect to Beehiiv's magic link
                 window.location.href = magicLink;
             }
+        });
+
+        // Archive cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.archive-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
         });
     </script>
 </body>

@@ -37,6 +37,87 @@
             position: relative;
         }
 
+        /* Enhanced Preloader with Seamless Transition */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .preloader-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .preloader-logo {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            overflow: visible;
+            position: relative;
+        }
+
+        .preloader-logo .reel {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--forest-green);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: preloaderReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+        }
+
+        .preloader-logo .mediahq {
+            color: var(--gold);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: preloaderReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+        }
+
+        @keyframes preloaderReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Morphing elements for transition */
+        .morph-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+        }
+
+        .morph-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--cream);
+            transform: translate(-50%, -50%);
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .morph-circle.expand {
+            width: 200vmax;
+            height: 200vmax;
+        }
+
         /* Luxury Glow Cursor - High Performance */
         .cursor {
             position: fixed;
@@ -45,6 +126,11 @@
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .cursor.active {
             opacity: 1;
         }
 
@@ -113,56 +199,14 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.03;
+            opacity: 0;
             z-index: 1;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSI0IiAvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjEiIC8+Cjwvc3ZnPg==');
+            transition: opacity 1s ease;
         }
 
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--cream);
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-
-        .preloader-content {
-            text-align: center;
-        }
-
-        .preloader-logo {
-            font-size: 3rem;
-            font-weight: 700;
-            overflow: hidden;
-        }
-
-        .preloader-logo .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--forest-green);
-            display: inline-block;
-            transform: translateY(100%);
-            animation: slideUp 0.6s ease forwards;
-        }
-
-        .preloader-logo .mediahq {
-            color: var(--gold);
-            display: inline-block;
-            transform: translateY(100%);
-            animation: slideUp 0.6s ease 0.2s forwards;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-            }
+        .noise.active {
+            opacity: 0.03;
         }
 
         /* Premium Menu */
@@ -172,6 +216,14 @@
             left: 2rem;
             z-index: 1000;
             mix-blend-mode: difference;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-container.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .menu-toggle {
@@ -373,7 +425,7 @@
             font-weight: 300;
         }
 
-        /* Hero Section */
+        /* Hero Section with Enhanced Entrance */
         .hero {
             height: 100vh;
             display: flex;
@@ -390,6 +442,12 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero-bg.visible {
+            opacity: 1;
         }
 
         .hero-gradient {
@@ -399,6 +457,14 @@
             top: -25%;
             left: -25%;
             background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-gradient.active {
+            opacity: 1;
+            transform: scale(1);
             animation: gradientShift 20s ease-in-out infinite;
         }
 
@@ -425,18 +491,14 @@
 
         .hero h1 .word {
             display: inline-block;
-            transform: translateY(100%);
-            animation: heroWordReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(100%) scale(0.9);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .hero h1 .word:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        @keyframes heroWordReveal {
-            to {
-                transform: translateY(0);
-            }
+        .hero h1 .word.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .hero .reel {
@@ -457,8 +519,13 @@
             margin-bottom: 2rem;
             font-weight: 300;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease 0.5s forwards;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-subtitle.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .hero-description {
@@ -468,15 +535,13 @@
             margin: 0 auto 3rem;
             line-height: 1.8;
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease 0.7s forwards;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-description.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Magnetic Button */
@@ -492,8 +557,12 @@
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease 0.9s forwards;
+            transform: translateY(30px) scale(0.9);
+        }
+
+        .hero-cta.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         .hero-cta::before {
@@ -521,6 +590,11 @@
         .floating-element {
             position: absolute;
             pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .floating-element.visible {
             opacity: 0.1;
         }
 
@@ -532,6 +606,11 @@
             top: 10%;
             right: -150px;
             animation: float 20s ease-in-out infinite;
+            animation-play-state: paused;
+        }
+
+        .floating-element.animate {
+            animation-play-state: running;
         }
 
         .floating-element:nth-child(2) {
@@ -542,6 +621,7 @@
             bottom: 10%;
             left: -100px;
             animation: float 15s ease-in-out infinite reverse;
+            animation-play-state: paused;
         }
 
         @keyframes float {
@@ -953,6 +1033,11 @@
         </div>
     </div>
 
+    <!-- Morph Overlay for Premium Transition -->
+    <div class="morph-overlay">
+        <div class="morph-circle"></div>
+    </div>
+
     <!-- Noise Texture -->
     <div class="noise"></div>
 
@@ -1108,15 +1193,88 @@
     </footer>
 
     <script>
-        // Preloader
+        // Premium Transition Sequence
+        let isTransitioning = false;
+        
         window.addEventListener('load', () => {
+            // Start the premium transition sequence
             setTimeout(() => {
-                document.querySelector('.preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.querySelector('.preloader').style.display = 'none';
-                }, 500);
-            }, 1500);
+                startPremiumTransition();
+            }, 1500); // Give time for preloader text to animate in
         });
+
+        function startPremiumTransition() {
+            isTransitioning = true;
+            const preloader = document.querySelector('.preloader');
+            const morphOverlay = document.querySelector('.morph-overlay');
+            const morphCircle = document.querySelector('.morph-circle');
+            const noise = document.querySelector('.noise');
+            const heroBg = document.querySelector('.hero-bg');
+            const heroGradient = document.querySelector('.hero-gradient');
+            const heroWords = document.querySelectorAll('.hero h1 .word');
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            const heroDescription = document.querySelector('.hero-description');
+            const heroCta = document.querySelector('.hero-cta');
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const menuContainer = document.querySelector('.menu-container');
+            const cursor = document.querySelector('.cursor');
+
+            // Step 1: Fade preloader while keeping logo visible
+            preloader.style.opacity = '0.7';
+            
+            // Step 2: Start morph transition
+            setTimeout(() => {
+                morphOverlay.style.opacity = '1';
+                morphCircle.classList.add('expand');
+                
+                // Start fading in hero background
+                heroBg.classList.add('visible');
+                noise.classList.add('active');
+            }, 300);
+
+            // Step 3: Complete preloader fade
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+            }, 800);
+
+            // Step 4: Animate hero content
+            setTimeout(() => {
+                // Animate hero text with stagger
+                heroWords.forEach((word, index) => {
+                    setTimeout(() => {
+                        word.classList.add('animate');
+                    }, index * 200);
+                });
+
+                // Gradient and floating elements
+                heroGradient.classList.add('active');
+                floatingElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                        el.classList.add('animate');
+                    }, 1000 + (index * 200));
+                });
+            }, 1200);
+
+            // Step 5: Secondary content
+            setTimeout(() => {
+                heroSubtitle.classList.add('visible');
+                heroDescription.classList.add('visible');
+                heroCta.classList.add('visible');
+                menuContainer.classList.add('visible');
+                cursor.classList.add('active');
+                
+                // Hide morph overlay
+                morphOverlay.style.opacity = '0';
+            }, 1800);
+
+            // Step 6: Cleanup
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                morphOverlay.style.display = 'none';
+                isTransitioning = false;
+            }, 2500);
+        }
 
         // Luxury Glow Cursor - High Performance Version
         const cursor = document.querySelector('.cursor');
@@ -1125,18 +1283,20 @@
         
         // Direct cursor update for instant response
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            // Trail follows with slight delay for glow effect
-            clearTimeout(trailTimeout);
-            trail.style.opacity = '0.7';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            
-            trailTimeout = setTimeout(() => {
-                trail.style.opacity = '0';
-            }, 150);
+            if (!isTransitioning) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                // Trail follows with slight delay for glow effect
+                clearTimeout(trailTimeout);
+                trail.style.opacity = '0.7';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                
+                trailTimeout = setTimeout(() => {
+                    trail.style.opacity = '0';
+                }, 150);
+            }
         });
         
         // Hover effects
@@ -1166,7 +1326,9 @@
         });
         
         document.addEventListener('mouseenter', () => {
-            cursor.style.opacity = '1';
+            if (!isTransitioning) {
+                cursor.style.opacity = '1';
+            }
         });
 
         // Navigation

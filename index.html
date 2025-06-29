@@ -83,6 +83,7 @@
             opacity: 0;
             transform: translateY(50px) scale(0.9);
             animation: preloaderReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+            font-weight: 600;
         }
 
         @keyframes preloaderReveal {
@@ -348,13 +349,11 @@
             transform: translateY(100%);
             transition: all 0.3s ease;
             position: relative;
+            gap: 0.15em;
         }
 
-        .nav-menu a .nav-reel-img {
-            height: 0.9em;
-            width: auto;
-            display: inline-block;
-            margin-right: 0.05em;
+        .nav-menu a .reel-text {
+            font-size: 1.05em;
         }
 
         .nav-overlay.active .nav-menu a {
@@ -502,7 +501,7 @@
             align-items: center;
             justify-content: center;
             gap: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         .hero h1 .word {
@@ -795,6 +794,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0;
+            letter-spacing: -0.01em;
         }
 
         .pillar-card h3 .reel-img {
@@ -920,6 +920,7 @@
 
         .footer-brand .mediahq {
             color: var(--gold);
+            font-weight: 600;
         }
 
         .footer-tagline {
@@ -953,13 +954,11 @@
             display: inline-flex;
             align-items: center;
             position: relative;
+            gap: 0.1em;
         }
 
-        .footer-links a .footer-reel-img {
-            height: 0.9em;
-            width: auto;
-            display: inline-block;
-            margin-right: 0.05em;
+        .footer-links a .reel-text {
+            font-size: 1.05em;
         }
 
         .footer-links a::after {
@@ -1016,54 +1015,49 @@
 
         /* Reel Image Styling - Premium positioning and sizing */
         .reel-img {
-            height: 1.25em !important;
+            height: 1.3em !important;
             width: auto !important;
             vertical-align: middle;
             display: inline-block;
-            margin-right: -0.15em;
+            margin-right: -0.08em;
             position: relative;
-            top: -0.05em;
+            top: -0.08em;
         }
 
         /* Hero section specific adjustments */
         .hero h1 .reel-img {
-            height: 1.25em !important;
-            top: -0.05em;
-            margin-right: -0.15em;
+            height: 1.35em !important;
+            top: -0.08em;
+            margin-right: -0.08em;
         }
 
         /* Preloader specific */
         .preloader-logo .reel-img {
-            height: 1.3em !important;
-            top: -0.05em;
-            margin-right: -0.15em;
+            height: 1.35em !important;
+            top: -0.08em;
+            margin-right: -0.08em;
         }
 
         /* Pillar cards */
         h3 .reel-img {
-            height: 1.15em !important;
-            top: -0.05em;
-            margin-right: -0.12em;
-        }
-
-        /* Navigation menu */
-        .nav-menu a .nav-reel-img {
-            height: 1.15em !important;
-            top: -0.05em;
-            margin-right: -0.12em;
-        }
-
-        /* Footer adjustments */
-        .footer-brand h3 .reel-img {
             height: 1.2em !important;
-            top: -0.05em;
-            margin-right: -0.15em;
+            top: -0.07em;
+            margin-right: -0.06em;
         }
 
-        .footer-links a .footer-reel-img {
-            height: 1.05em !important;
-            top: -0.02em;
-            margin-right: -0.1em;
+        /* Footer brand logo */
+        .footer-brand h3 .reel-img {
+            height: 1.25em !important;
+            top: -0.08em;
+            margin-right: -0.08em;
+        }
+
+        /* Text-based Reel for nav and footer links */
+        .reel-text {
+            color: inherit;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
         }
 
         /* Responsive */
@@ -1154,9 +1148,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Scoop</a></li>
-                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Strategy</a></li>
-                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">forge Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text">Reel</span>forge Studio</a></li>
                 </ul>
             </nav>
             <div class="nav-info">
@@ -1235,7 +1229,7 @@
                     <div class="pillar-icon">
                         <span>🎬</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">forge Studio</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">forge</span> <span style="color: var(--forest-green);">Studio</span></h3>
                     <p>Creative experiments exploring the future of storytelling, interactivity, and intelligent media. Where new ideas come to life.</p>
                     <a href="studio.html" class="pillar-cta">
                         <span>Explore</span>
@@ -1261,9 +1255,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Scoop</a></li>
-                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Strategy</a></li>
-                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">forge Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text">Reel</span>forge Studio</a></li>
                 </ul>
             </div>
             

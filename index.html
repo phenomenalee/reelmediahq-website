@@ -62,12 +62,14 @@
             font-weight: 700;
             overflow: visible;
             position: relative;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
         }
 
-        .preloader-logo .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--forest-green);
+        .preloader-logo .reel-img {
+            height: 1em;
+            width: auto;
             display: inline-block;
             opacity: 0;
             transform: translateY(50px) scale(0.9);
@@ -346,6 +348,14 @@
             position: relative;
         }
 
+        .nav-menu a .nav-reel-img {
+            height: 0.9em;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
+            margin-right: 0.2em;
+        }
+
         .nav-overlay.active .nav-menu a {
             animation: navItemSlide 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
@@ -487,6 +497,10 @@
             font-weight: 700;
             margin-bottom: 2rem;
             overflow: hidden;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.15em;
         }
 
         .hero h1 .word {
@@ -501,11 +515,11 @@
             transform: translateY(0) scale(1);
         }
 
-        .hero .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--forest-green);
-            position: relative;
+        .hero h1 .reel-img {
+            height: 1em;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
         }
 
         .hero .mediahq {
@@ -775,11 +789,16 @@
             font-weight: 600;
             position: relative;
             flex-shrink: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 0.2em;
         }
 
-        .pillar-card h3 .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
+        .pillar-card h3 .reel-img {
+            height: 0.9em;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
         }
 
         .pillar-card h3 .gold-text {
@@ -885,12 +904,16 @@
         .footer-brand h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.1em;
         }
 
-        .footer-brand .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--cream);
+        .footer-brand .reel-img {
+            height: 1em;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
         }
 
         .footer-brand .mediahq {
@@ -927,6 +950,14 @@
             transition: all 0.3s ease;
             display: inline-block;
             position: relative;
+        }
+
+        .footer-links a .footer-reel-img {
+            height: 0.9em;
+            width: auto;
+            display: inline-block;
+            vertical-align: baseline;
+            margin-right: 0.15em;
         }
 
         .footer-links a::after {
@@ -998,6 +1029,10 @@
                 text-align: center;
             }
 
+            .footer-brand h3 {
+                justify-content: center;
+            }
+
             .pillars-grid {
                 grid-template-columns: 1fr;
             }
@@ -1006,6 +1041,7 @@
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 3rem;
+                flex-direction: column;
             }
 
             .menu-label {
@@ -1028,7 +1064,8 @@
     <div class="preloader">
         <div class="preloader-content">
             <div class="preloader-logo">
-                <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+                <img src="reel-text.png" alt="Reel" class="reel-img">
+                <span class="mediahq">MediaHQ</span>
             </div>
         </div>
     </div>
@@ -1064,9 +1101,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelverse Studio</a></li>
+                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Scoop</a></li>
+                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Strategy</a></li>
+                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">verse Studio</a></li>
                 </ul>
             </nav>
             <div class="nav-info">
@@ -1089,7 +1126,7 @@
         <div class="floating-element"></div>
         <div class="hero-content">
             <h1>
-                <span class="word"><span class="reel">Reel</span></span>
+                <span class="word"><img src="reel-text.png" alt="Reel" class="reel-img"></span>
                 <span class="word"><span class="mediahq">MediaHQ</span></span>
             </h1>
             <p class="hero-subtitle">Creative Studio & Insight Lab</p>
@@ -1115,7 +1152,7 @@
                     <div class="pillar-icon">
                         <span>💡</span>
                     </div>
-                    <h3><span class="reel">Reel</span> <span class="gold-text">Scoop</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"> <span class="gold-text">Scoop</span></h3>
                     <p>Curated insights on how AI is reshaping creativity, media, and business. Clear, concise summaries for forward thinkers.</p>
                     <a href="scoop.html" class="pillar-cta">
                         <span>Subscribe Now</span>
@@ -1130,7 +1167,7 @@
                     <div class="pillar-icon">
                         <span>🎯</span>
                     </div>
-                    <h3><span class="reel">Reel</span> <span class="gold-text">Strategy</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"> <span class="gold-text">Strategy</span></h3>
                     <p>Strategic guidance for teams navigating growth, innovation, and emerging tech. We turn vision into execution.</p>
                     <a href="strategy.html" class="pillar-cta">
                         <span>Reach Out</span>
@@ -1145,7 +1182,7 @@
                     <div class="pillar-icon">
                         <span>🎬</span>
                     </div>
-                    <h3><span class="reel">Reel</span><span class="gold-text">verse Studio</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">verse Studio</span></h3>
                     <p>Creative experiments exploring the future of storytelling, interactivity, and intelligent media. Where new ideas come to life.</p>
                     <a href="studio.html" class="pillar-cta">
                         <span>Explore</span>
@@ -1162,7 +1199,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h3><span class="reel">Reel</span><span class="mediahq">MediaHQ</span></h3>
+                <h3><img src="reel-text-light.png" alt="Reel" class="reel-img"><span class="mediahq">MediaHQ</span></h3>
                 <p class="footer-tagline">
                     Exploring the edges of creative possibility. We believe in the transformative power of technology when guided by human imagination.
                 </p>
@@ -1171,9 +1208,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelverse Studio</a></li>
+                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Scoop</a></li>
+                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Strategy</a></li>
+                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">verse Studio</a></li>
                 </ul>
             </div>
             

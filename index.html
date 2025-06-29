@@ -65,6 +65,7 @@
             display: flex;
             align-items: baseline;
             justify-content: center;
+            gap: 0.05em;
         }
 
         .preloader-logo .reel-img {
@@ -500,7 +501,7 @@
             display: flex;
             align-items: baseline;
             justify-content: center;
-            gap: 0.15em;
+            gap: 0.05em;
         }
 
         .hero h1 .word {
@@ -791,7 +792,7 @@
             flex-shrink: 0;
             display: flex;
             align-items: baseline;
-            gap: 0.2em;
+            gap: 0.1em;
         }
 
         .pillar-card h3 .reel-img {
@@ -906,7 +907,7 @@
             margin-bottom: 1rem;
             display: flex;
             align-items: baseline;
-            gap: 0.1em;
+            gap: 0.05em;
         }
 
         .footer-brand .reel-img {
@@ -1010,6 +1011,58 @@
 
         .reveal-stagger:nth-child(3) {
             transition-delay: 0.3s;
+        }
+
+        /* Reel Image Styling - Premium positioning and sizing */
+        .reel-img {
+            height: 0.8em !important;
+            width: auto !important;
+            vertical-align: baseline;
+            display: inline-block;
+            margin-right: 0.1em;
+            position: relative;
+            top: 0.08em; /* Fine-tune vertical alignment */
+        }
+
+        /* Hero section specific adjustments */
+        .hero h1 .reel-img {
+            height: 0.88em !important;
+            top: 0.05em;
+            margin-right: 0.15em;
+        }
+
+        /* Preloader specific */
+        .preloader-logo .reel-img {
+            height: 0.95em !important;
+            top: 0.03em;
+            margin-right: 0.08em;
+        }
+
+        /* Pillar cards */
+        h3 .reel-img {
+            height: 0.82em !important;
+            top: 0.06em;
+            margin-right: 0.12em;
+        }
+
+        /* Navigation menu */
+        .nav-menu a .nav-reel-img {
+            height: 0.75em !important;
+            top: 0.05em;
+            margin-right: 0.1em;
+        }
+
+        /* Footer adjustments */
+        .footer-brand h3 .reel-img {
+            height: 0.85em !important;
+            top: 0.04em;
+            margin-right: 0.08em;
+        }
+
+        .footer-links a .footer-reel-img {
+            height: 0.75em !important;
+            top: 0.04em;
+            margin-right: 0.08em;
         }
 
         /* Responsive */

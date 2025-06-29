@@ -276,6 +276,13 @@
             width: 100%;
         }
 
+        /* Text-based Reel for nav */
+        .reel-text {
+            color: inherit;
+            font-weight: inherit;
+            padding-right: 0.12em;
+        }
+
         .close-nav {
             position: fixed;
             top: 2rem;
@@ -355,20 +362,25 @@
             color: var(--forest-green);
             font-weight: 700;
             overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
         }
 
-        .hero h1 .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--forest-green);
+        .hero h1 .reel-img {
+            height: 1.35em !important;
+            width: auto;
             display: inline-block;
             animation: slideDown 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            top: 0.02em;
         }
 
         .hero h1 .strategy {
             color: var(--gold);
             display: inline-block;
             animation: slideUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
         }
 
         @keyframes slideDown {
@@ -749,6 +761,22 @@
             font-size: 2rem;
         }
 
+        /* Reel Image Styling - Premium positioning and sizing */
+        .reel-img {
+            height: 1.3em !important;
+            width: auto !important;
+            vertical-align: middle;
+            display: inline-block;
+            position: relative;
+            top: 0.02em;
+        }
+
+        /* Footer specific */
+        .footer-logo .reel-img {
+            height: 1.25em !important;
+            top: 0.02em;
+        }
+
         /* Footer */
         footer {
             background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
@@ -760,16 +788,14 @@
         .footer-logo {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-        }
-
-        .footer-logo .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--cream);
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
         }
 
         .footer-logo .mediahq {
             color: var(--gold);
+            font-weight: 600;
         }
 
         .footer-tagline {
@@ -855,9 +881,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelverse Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text" style="padding-right: 0;">Reel</span>forge Studio</a></li>
                 </ul>
             </nav>
         </div>
@@ -872,7 +898,7 @@
             <div class="hero-pattern"></div>
         </div>
         <div class="hero-content">
-            <h1><span class="reel">Reel</span> <span class="strategy">Strategy</span></h1>
+            <h1><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: 0.1em;"> <span class="strategy">Strategy</span></h1>
             <p class="hero-description">
                 Helping teams align vision, validate markets, and bring ideas to life.
             </p>
@@ -1005,7 +1031,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-logo">
-            <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+            <img src="reel-text-light.png" alt="Reel" class="reel-img" style="margin-right: -0.05em;"><span class="mediahq">MediaHQ</span>
         </div>
         <p class="footer-tagline">Exploring the edges of creative possibility</p>
         <div class="footer-links">
@@ -1108,6 +1134,8 @@
         });
 
         // Form submission
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxB_UDRzz0AnNoDe51J8y1OIm1PqQa-vcuIIIKoutSe6XLy5OF1_yg3VpaIX-cyx_K3/exec';
+        
         document.getElementById('strategy-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1125,8 +1153,12 @@
             formData.append('company', document.getElementById('company').value);
             formData.append('message', document.getElementById('message').value);
             
-            // Simulate form submission (replace with actual submission)
-            setTimeout(() => {
+            // Submit to Google Sheets
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData
+            })
+            .then(response => {
                 // Remove loading state
                 submitBtn.classList.remove('loading');
                 submitBtn.disabled = false;
@@ -1141,10 +1173,13 @@
                 setTimeout(() => {
                     successMessage.classList.remove('show');
                 }, 3000);
-            }, 2000);
-            
-            // Actual form submission would go here
-            // fetch(scriptURL, { method: 'POST', body: formData })
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                alert('There was an error submitting your message. Please try again or email directly to cl@reelmediahq.com');
+            });
         });
     </script>
 </body>

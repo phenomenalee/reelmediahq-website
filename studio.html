@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reelverse Studio - ReelMediaHQ</title>
+    <title>Reelforge Studio - ReelMediaHQ</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -275,6 +275,13 @@
             width: 100%;
         }
 
+        /* Text-based Reel for nav */
+        .reel-text {
+            color: inherit;
+            font-weight: inherit;
+            padding-right: 0.12em;
+        }
+
         .close-nav {
             position: fixed;
             top: 2rem;
@@ -359,26 +366,35 @@
             color: var(--cream);
             font-weight: 700;
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            letter-spacing: -0.01em;
+            word-spacing: -0.15em;
         }
 
-        .hero h1 .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--cream);
+        .hero h1 .reel-img {
+            height: 1.35em !important;
+            width: auto;
             display: inline-block;
             animation: glitch 3s infinite;
+            position: relative;
+            top: 0.02em;
+            margin-right: -0.08em;
         }
 
-        .hero h1 .verse {
+        .hero h1 .forge {
             color: var(--gold);
             display: inline-block;
             animation: glitch 3s infinite 0.1s;
+            font-weight: 700;
         }
 
         .hero h1 .studio {
             color: var(--gold);
             display: inline-block;
             animation: glitch 3s infinite 0.2s;
+            font-weight: 700;
         }
 
         @keyframes glitch {
@@ -572,6 +588,22 @@
             gap: 1rem;
         }
 
+        /* Reel Image Styling - Premium positioning and sizing */
+        .reel-img {
+            height: 1.3em !important;
+            width: auto !important;
+            vertical-align: middle;
+            display: inline-block;
+            position: relative;
+            top: 0.02em;
+        }
+
+        /* Footer specific */
+        .footer-logo .reel-img {
+            height: 1.25em !important;
+            top: 0.02em;
+        }
+
         /* Footer */
         footer {
             background: var(--black);
@@ -585,16 +617,14 @@
         .footer-logo {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-        }
-
-        .footer-logo .reel {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--cream);
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
         }
 
         .footer-logo .mediahq {
             color: var(--gold);
+            font-weight: 600;
         }
 
         .footer-tagline {
@@ -671,9 +701,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelverse Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text" style="padding-right: 0;">Reel</span>forge Studio</a></li>
                 </ul>
             </nav>
         </div>
@@ -688,7 +718,7 @@
             <div class="grid-bg"></div>
         </div>
         <div class="hero-content">
-            <h1><span class="reel">Reel</span><span class="verse">verse</span> <span class="studio">Studio</span></h1>
+            <h1><img src="reel-text-light.png" alt="Reel" class="reel-img"><span class="forge">forge</span>&nbsp;<span class="studio">Studio</span></h1>
             <p class="hero-description">
                 Creative experiments exploring the future of storytelling, interactivity, and intelligent media. A laboratory for testing ideas at the intersection of technology and narrative.
             </p>
@@ -759,7 +789,7 @@
     <!-- Footer -->
     <footer>
         <div class="footer-logo">
-            <span class="reel">Reel</span><span class="mediahq">MediaHQ</span>
+            <img src="reel-text-light.png" alt="Reel" class="reel-img" style="margin-right: -0.05em;"><span class="mediahq">MediaHQ</span>
         </div>
         <p class="footer-tagline">Exploring the edges of creative possibility</p>
         <div class="footer-links">

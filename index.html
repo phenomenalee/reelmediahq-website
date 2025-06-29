@@ -66,6 +66,7 @@
             align-items: center;
             justify-content: center;
             gap: 0;
+            letter-spacing: -0.02em;
         }
 
         .preloader-logo .reel-img {
@@ -349,6 +350,7 @@
             transform: translateY(100%);
             transition: all 0.3s ease;
             position: relative;
+            letter-spacing: 0;
         }
 
         .nav-overlay.active .nav-menu a {
@@ -905,6 +907,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0;
+            letter-spacing: -0.01em;
         }
 
         .footer-brand .reel-img {
@@ -949,6 +952,7 @@
             display: inline-flex;
             align-items: center;
             position: relative;
+            letter-spacing: 0;
         }
 
         .footer-links a::after {
@@ -1009,37 +1013,39 @@
             width: auto !important;
             vertical-align: middle;
             display: inline-block;
-            margin-right: -0.08em;
             position: relative;
-            top: -0.02em;
+            top: 0;
         }
 
         /* Hero section specific adjustments */
         .hero h1 .reel-img {
             height: 1.35em !important;
-            top: -0.02em;
-            margin-right: -0.08em;
+            top: 0;
         }
 
         /* Preloader specific */
         .preloader-logo .reel-img {
             height: 1.35em !important;
-            top: -0.02em;
-            margin-right: -0.08em;
+            top: 0;
         }
 
         /* Pillar cards */
         h3 .reel-img {
             height: 1.2em !important;
-            top: -0.02em;
-            margin-right: -0.06em;
+            top: 0.01em;
         }
 
         /* Footer brand logo */
         .footer-brand h3 .reel-img {
             height: 1.25em !important;
-            top: -0.02em;
-            margin-right: -0.08em;
+            top: 0;
+        }
+
+        /* Text-based Reel for nav and footer links */
+        .reel-text {
+            color: inherit;
+            font-weight: inherit;
+            padding-right: 0.12em;
         }
 
         /* Responsive */
@@ -1094,7 +1100,7 @@
     <div class="preloader">
         <div class="preloader-content">
             <div class="preloader-logo">
-                <img src="reel-text.png" alt="Reel" class="reel-img"><span class="mediahq">MediaHQ</span>
+                <img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: -0.05em;"><span class="mediahq">MediaHQ</span>
             </div>
         </div>
     </div>
@@ -1130,9 +1136,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelforge Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text" style="padding-right: 0;">Reel</span>forge Studio</a></li>
                 </ul>
             </nav>
             <div class="nav-info">
@@ -1155,7 +1161,7 @@
         <div class="floating-element"></div>
         <div class="hero-content">
             <h1>
-                <span class="word"><img src="reel-text.png" alt="Reel" class="reel-img"></span>
+                <span class="word"><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: -0.05em;"></span>
                 <span class="word"><span class="mediahq">MediaHQ</span></span>
             </h1>
             <p class="hero-subtitle">Creative Studio & Insight Lab</p>
@@ -1181,7 +1187,7 @@
                     <div class="pillar-icon">
                         <span>💡</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">Scoop</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: 0.1em;"><span class="gold-text">Scoop</span></h3>
                     <p>Curated insights on how AI is reshaping creativity, media, and business. Clear, concise summaries for forward thinkers.</p>
                     <a href="scoop.html" class="pillar-cta">
                         <span>Subscribe Now</span>
@@ -1196,7 +1202,7 @@
                     <div class="pillar-icon">
                         <span>🎯</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">Strategy</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: 0.1em;"><span class="gold-text">Strategy</span></h3>
                     <p>Strategic guidance for teams navigating growth, innovation, and emerging tech. We turn vision into execution.</p>
                     <a href="strategy.html" class="pillar-cta">
                         <span>Reach Out</span>
@@ -1211,7 +1217,7 @@
                     <div class="pillar-icon">
                         <span>🎬</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">forge Studio</span></h3>
+                    <h3 style="letter-spacing: -0.01em; word-spacing: -0.15em;"><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: -0.08em;"><span class="gold-text">forge</span>&nbsp;<span style="color: var(--forest-green);">Studio</span></h3>
                     <p>Creative experiments exploring the future of storytelling, interactivity, and intelligent media. Where new ideas come to life.</p>
                     <a href="studio.html" class="pillar-cta">
                         <span>Explore</span>
@@ -1228,7 +1234,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h3><img src="reel-text-light.png" alt="Reel" class="reel-img"><span class="mediahq">MediaHQ</span></h3>
+                <h3><img src="reel-text-light.png" alt="Reel" class="reel-img" style="margin-right: -0.05em;"><span class="mediahq">MediaHQ</span></h3>
                 <p class="footer-tagline">
                     Exploring the edges of creative possibility. We believe in the transformative power of technology when guided by human imagination.
                 </p>
@@ -1237,9 +1243,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="scoop.html">Reel Scoop</a></li>
-                    <li><a href="strategy.html">Reel Strategy</a></li>
-                    <li><a href="studio.html">Reelforge Studio</a></li>
+                    <li><a href="scoop.html"><span class="reel-text">Reel</span> Scoop</a></li>
+                    <li><a href="strategy.html"><span class="reel-text">Reel</span> Strategy</a></li>
+                    <li><a href="studio.html"><span class="reel-text" style="padding-right: 0;">Reel</span>forge Studio</a></li>
                 </ul>
             </div>
             

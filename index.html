@@ -62,8 +62,8 @@
             font-weight: 700;
             overflow: visible;
             position: relative;
-            display: flex;
-            align-items: baseline;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
             gap: 0;
         }
@@ -343,7 +343,8 @@
             text-decoration: none;
             font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 300;
-            display: block;
+            display: inline-flex;
+            align-items: center;
             transform: translateY(100%);
             transition: all 0.3s ease;
             position: relative;
@@ -353,8 +354,7 @@
             height: 0.9em;
             width: auto;
             display: inline-block;
-            vertical-align: baseline;
-            margin-right: 0.2em;
+            margin-right: 0.05em;
         }
 
         .nav-overlay.active .nav-menu a {
@@ -498,15 +498,16 @@
             font-weight: 700;
             margin-bottom: 2rem;
             overflow: hidden;
-            display: flex;
-            align-items: baseline;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
             gap: 0;
             letter-spacing: -0.01em;
         }
 
         .hero h1 .word {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             opacity: 0;
             transform: translateY(100%) scale(0.9);
             transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -521,7 +522,6 @@
             height: 1em;
             width: auto;
             display: inline-block;
-            vertical-align: baseline;
         }
 
         .hero .mediahq {
@@ -792,8 +792,8 @@
             font-weight: 600;
             position: relative;
             flex-shrink: 0;
-            display: flex;
-            align-items: baseline;
+            display: inline-flex;
+            align-items: center;
             gap: 0;
         }
 
@@ -801,7 +801,7 @@
             height: 0.9em;
             width: auto;
             display: inline-block;
-            vertical-align: baseline;
+            margin-right: 0.05em;
         }
 
         .pillar-card h3 .gold-text {
@@ -907,8 +907,8 @@
         .footer-brand h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: baseline;
+            display: inline-flex;
+            align-items: center;
             gap: 0;
         }
 
@@ -916,7 +916,6 @@
             height: 1em;
             width: auto;
             display: inline-block;
-            vertical-align: baseline;
         }
 
         .footer-brand .mediahq {
@@ -951,7 +950,8 @@
             text-decoration: none;
             opacity: 0.8;
             transition: all 0.3s ease;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             position: relative;
         }
 
@@ -959,8 +959,7 @@
             height: 0.9em;
             width: auto;
             display: inline-block;
-            vertical-align: baseline;
-            margin-right: 0.15em;
+            margin-right: 0.05em;
         }
 
         .footer-links a::after {
@@ -1017,54 +1016,54 @@
 
         /* Reel Image Styling - Premium positioning and sizing */
         .reel-img {
-            height: 1.15em !important;
+            height: 1.25em !important;
             width: auto !important;
-            vertical-align: baseline;
+            vertical-align: middle;
             display: inline-block;
-            margin-right: -0.08em;
+            margin-right: -0.15em;
             position: relative;
-            top: 0.02em;
+            top: -0.05em;
         }
 
         /* Hero section specific adjustments */
         .hero h1 .reel-img {
-            height: 1.2em !important;
-            top: 0;
-            margin-right: -0.1em;
+            height: 1.25em !important;
+            top: -0.05em;
+            margin-right: -0.15em;
         }
 
         /* Preloader specific */
         .preloader-logo .reel-img {
-            height: 1.25em !important;
-            top: 0;
-            margin-right: -0.1em;
+            height: 1.3em !important;
+            top: -0.05em;
+            margin-right: -0.15em;
         }
 
         /* Pillar cards */
         h3 .reel-img {
-            height: 1.1em !important;
-            top: 0.02em;
-            margin-right: -0.05em;
+            height: 1.15em !important;
+            top: -0.05em;
+            margin-right: -0.12em;
         }
 
         /* Navigation menu */
         .nav-menu a .nav-reel-img {
-            height: 1.1em !important;
-            top: 0;
-            margin-right: -0.08em;
+            height: 1.15em !important;
+            top: -0.05em;
+            margin-right: -0.12em;
         }
 
         /* Footer adjustments */
         .footer-brand h3 .reel-img {
-            height: 1.15em !important;
-            top: 0;
-            margin-right: -0.08em;
+            height: 1.2em !important;
+            top: -0.05em;
+            margin-right: -0.15em;
         }
 
         .footer-links a .footer-reel-img {
-            height: 1em !important;
-            top: 0.02em;
-            margin-right: -0.05em;
+            height: 1.05em !important;
+            top: -0.02em;
+            margin-right: -0.1em;
         }
 
         /* Responsive */
@@ -1155,9 +1154,9 @@
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">&nbsp;Scoop</a></li>
-                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">&nbsp;Strategy</a></li>
-                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img" style="margin-right: -0.12em;"><span style="letter-spacing: -0.03em;">verse&nbsp;Studio</span></a></li>
+                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Scoop</a></li>
+                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">Strategy</a></li>
+                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="nav-reel-img">forge Studio</a></li>
                 </ul>
             </nav>
             <div class="nav-info">
@@ -1206,7 +1205,7 @@
                     <div class="pillar-icon">
                         <span>💡</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img">&nbsp;<span class="gold-text">Scoop</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">Scoop</span></h3>
                     <p>Curated insights on how AI is reshaping creativity, media, and business. Clear, concise summaries for forward thinkers.</p>
                     <a href="scoop.html" class="pillar-cta">
                         <span>Subscribe Now</span>
@@ -1221,7 +1220,7 @@
                     <div class="pillar-icon">
                         <span>🎯</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img">&nbsp;<span class="gold-text">Strategy</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">Strategy</span></h3>
                     <p>Strategic guidance for teams navigating growth, innovation, and emerging tech. We turn vision into execution.</p>
                     <a href="strategy.html" class="pillar-cta">
                         <span>Reach Out</span>
@@ -1231,12 +1230,12 @@
                     </a>
                 </div>
 
-                <!-- Reelverse Studio -->
+                <!-- Reelforge Studio -->
                 <div class="pillar-card reveal reveal-stagger">
                     <div class="pillar-icon">
                         <span>🎬</span>
                     </div>
-                    <h3><img src="reel-text.png" alt="Reel" class="reel-img" style="margin-right: -0.12em;"><span class="gold-text" style="letter-spacing: -0.03em;">verse&nbsp;Studio</span></h3>
+                    <h3><img src="reel-text.png" alt="Reel" class="reel-img"><span class="gold-text">forge Studio</span></h3>
                     <p>Creative experiments exploring the future of storytelling, interactivity, and intelligent media. Where new ideas come to life.</p>
                     <a href="studio.html" class="pillar-cta">
                         <span>Explore</span>
@@ -1262,9 +1261,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">&nbsp;Scoop</a></li>
-                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">&nbsp;Strategy</a></li>
-                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img" style="margin-right: -0.1em;"><span style="letter-spacing: -0.03em;">verse&nbsp;Studio</span></a></li>
+                    <li><a href="scoop.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Scoop</a></li>
+                    <li><a href="strategy.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">Strategy</a></li>
+                    <li><a href="studio.html"><img src="reel-text-light.png" alt="Reel" class="footer-reel-img">forge Studio</a></li>
                 </ul>
             </div>
             

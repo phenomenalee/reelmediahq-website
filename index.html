@@ -56,7 +56,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* Luxury Glow Cursor - High Performance */
@@ -66,13 +66,14 @@
             height: 40px;
             pointer-events: none;
             z-index: 10000;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.8);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s ease;
         }
 
         .cursor.active {
             opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .cursor::before {
@@ -143,7 +144,7 @@
             opacity: 0;
             z-index: 1;
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj4KICA8ZmlsdGVyIGlkPSJub2lzZSI+CiAgICA8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC45IiBudW1PY3RhdmVzPSI0IiAvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjEiIC8+Cjwvc3ZnPg==');
-            transition: opacity 1s ease;
+            transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .noise.active {
@@ -158,13 +159,15 @@
             z-index: 1000;
             mix-blend-mode: difference;
             opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(-20px) scale(0.95);
+            filter: blur(4px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .menu-container.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         .menu-toggle {
@@ -386,11 +389,13 @@
             height: 100%;
             background: linear-gradient(135deg, var(--cream) 0%, #f0f0e8 100%);
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transform: scale(1.05);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-bg.visible {
             opacity: 1;
+            transform: scale(1);
         }
 
         .hero-gradient {
@@ -401,13 +406,15 @@
             left: -25%;
             background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
             opacity: 0;
-            transform: scale(0.8);
-            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.8) rotate(-5deg);
+            filter: blur(40px);
+            transition: all 3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-gradient.active {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
+            filter: blur(0);
             animation: gradientShift 20s ease-in-out infinite;
         }
 
@@ -441,13 +448,15 @@
             display: inline-flex;
             align-items: center;
             opacity: 0;
-            transform: translateY(100%) scale(0.9);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(40px) scale(0.94);
+            filter: blur(4px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero h1 .word.animate {
             opacity: 1;
             transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         .hero h1 .reel-img {
@@ -468,13 +477,15 @@
             margin-bottom: 2rem;
             font-weight: 300;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.96);
+            filter: blur(2px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-subtitle.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         .hero-description {
@@ -484,13 +495,15 @@
             margin: 0 auto 3rem;
             line-height: 1.8;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.96);
+            filter: blur(2px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-description.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         /* Magnetic Button */
@@ -504,14 +517,16 @@
             font-weight: 500;
             border-radius: 50px;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            transform: translateY(30px) scale(0.9);
+            transform: translateY(20px) scale(0.94);
+            filter: blur(2px);
         }
 
         .hero-cta.visible {
             opacity: 1;
             transform: translateY(0) scale(1);
+            filter: blur(0);
         }
 
         .hero-cta::before {
@@ -540,11 +555,15 @@
             position: absolute;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 2s ease;
+            transform: scale(0.8);
+            filter: blur(10px);
+            transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .floating-element.visible {
             opacity: 0.1;
+            transform: scale(1);
+            filter: blur(0);
         }
 
         .floating-element:nth-child(1) {
@@ -1188,14 +1207,14 @@
     </footer>
 
     <script>
-        // Simplified Transition Sequence
+        // Premium Transition Sequence
         let isTransitioning = false;
         
         window.addEventListener('load', () => {
-            // Start the transition immediately
+            // Start the transition with minimal delay
             setTimeout(() => {
                 startTransition();
-            }, 300);
+            }, 100);
         });
 
         function startTransition() {
@@ -1212,49 +1231,68 @@
             const menuContainer = document.querySelector('.menu-container');
             const cursor = document.querySelector('.cursor');
 
-            // Step 1: Start fading in hero background
+            // Step 1: Subtle background fade in
             heroBg.classList.add('visible');
-            noise.classList.add('active');
             
-            // Step 2: Fade out preloader
+            // Step 2: Begin preloader fade
             setTimeout(() => {
                 preloader.style.opacity = '0';
-            }, 500);
+                noise.classList.add('active');
+            }, 400);
 
-            // Step 3: Animate hero logo first
+            // Step 3: Animate "Reel" first
             setTimeout(() => {
-                // Animate hero text (ReelMediaHQ)
-                heroWords.forEach((word, index) => {
-                    setTimeout(() => {
-                        word.classList.add('animate');
-                    }, index * 200);
-                });
+                heroWords[0].classList.add('animate');
             }, 800);
 
-            // Step 4: Then animate everything else
+            // Step 4: Then "MediaHQ" with slight overlap
             setTimeout(() => {
-                // Gradient and floating elements
+                heroWords[1].classList.add('animate');
+            }, 1100);
+
+            // Step 5: PAUSE - Let the logo breathe and establish presence
+            // This creates anticipation and draws focus
+
+            // Step 6: Secondary content with elegant staggering
+            setTimeout(() => {
+                // Gradient starts first for atmosphere
                 heroGradient.classList.add('active');
+                
+                // Subtitle fades in
+                setTimeout(() => {
+                    heroSubtitle.classList.add('visible');
+                }, 200);
+                
+                // Description follows
+                setTimeout(() => {
+                    heroDescription.classList.add('visible');
+                }, 400);
+                
+                // CTA button appears
+                setTimeout(() => {
+                    heroCta.classList.add('visible');
+                }, 600);
+                
+                // Navigation and cursor
+                setTimeout(() => {
+                    menuContainer.classList.add('visible');
+                    cursor.classList.add('active');
+                }, 800);
+                
+                // Floating elements last for subtle polish
                 floatingElements.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('visible');
                         el.classList.add('animate');
-                    }, 200 + (index * 200));
+                    }, 1000 + (index * 300));
                 });
-                
-                // Secondary content
-                heroSubtitle.classList.add('visible');
-                heroDescription.classList.add('visible');
-                heroCta.classList.add('visible');
-                menuContainer.classList.add('visible');
-                cursor.classList.add('active');
-            }, 1400);
+            }, 2400); // This is the key pause - 1.3s after MediaHQ appears
 
-            // Step 5: Cleanup
+            // Step 7: Cleanup
             setTimeout(() => {
                 preloader.style.display = 'none';
                 isTransitioning = false;
-            }, 2000);
+            }, 4000);
         }
 
         // Luxury Glow Cursor - High Performance Version
